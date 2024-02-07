@@ -5,7 +5,7 @@ export const breakTheme = createTheme({
     values: {
       xs: 360,
       sm: 480,
-      md: 640,
+      md: 720,
       lg: 1024,
       xl: 1200,
     },
