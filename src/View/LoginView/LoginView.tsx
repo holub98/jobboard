@@ -12,8 +12,13 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginType, loginSchema } from "./schema";
-import { login } from "../../api";
+import { useNavigate } from "react-router-dom";
+import { login } from "~/api";
+import { useSetAtom } from "jotai";
+import { isLoginAuth } from "~/hooks";
+
 export const LoginView = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const {
     register,
@@ -22,12 +27,17 @@ export const LoginView = () => {
   } = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
   });
+  const loginValue = useSetAtom(isLoginAuth);
 
   const onSubmit = async (data: LoginType) => {
     login(data);
+
+    setTimeout(() => {
+      loginValue(true);
+      navigate("/");
+    }, 1000);
   };
-  const url = import.meta.env.VITE_API_URL;
-  console.log(url);
+
   return (
     <Stack justifyContent="center" alignItems="center" height="100%">
       <Box

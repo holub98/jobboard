@@ -1,5 +1,6 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { resolve } from "path";
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -10,6 +11,18 @@ export default defineConfig({
     watch: {
       usePolling: true,
     },
+    proxy: {
+      "/api": {
+        target: "http://localhost:8080",
+        changeOrigin: true,
+        secure: false,
+        ws: true,
+      },
+    },
   },
+
   plugins: [react()],
+  resolve: {
+    alias: [{ find: "~", replacement: resolve(__dirname, "./src") }],
+  },
 });

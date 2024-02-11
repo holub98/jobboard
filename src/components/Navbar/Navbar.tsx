@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import { blue } from "@mui/material/colors";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { breakTheme } from "../../theme";
 import {
   ChevronRight,
@@ -23,11 +23,23 @@ import {
   MenuRounded,
   Work,
 } from "@mui/icons-material";
+import { logout } from "~/api";
+import { isLoginAuth } from "~/hooks";
+import { useAtom, useSetAtom } from "jotai";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const isLogin = false;
-
+  const logoutValue = useSetAtom(isLoginAuth);
+  const [isLogin] = useAtom(isLoginAuth);
+  const navigate = useNavigate();
+  const onLogout = () => {
+    logout();
+    logoutValue(false);
+    setTimeout(() => {
+      navigate("/");
+    }, 3000);
+  };
+  console.log(isLogin);
   return (
     <Stack
       direction="row"
@@ -54,9 +66,9 @@ export const Navbar = () => {
       >
         <Button
           variant="text"
-          href="/"
           size="large"
           sx={{ fontWeight: "bold", color: `${blue[50]}` }}
+          href="/"
         >
           Offerts
         </Button>
@@ -68,15 +80,27 @@ export const Navbar = () => {
         >
           Companies
         </Button>
-        <Fab
-          variant="extended"
-          size="small"
-          color="primary"
-          href="/login"
-          sx={{ fontWeight: "bold" }}
-        >
-          Login
-        </Fab>
+        {isLogin ? (
+          <Fab
+            variant="extended"
+            size="small"
+            color="primary"
+            onClick={onLogout}
+            sx={{ fontWeight: "bold" }}
+          >
+            Logout
+          </Fab>
+        ) : (
+          <Fab
+            variant="extended"
+            size="small"
+            color="primary"
+            href="/login"
+            sx={{ fontWeight: "bold" }}
+          >
+            Login
+          </Fab>
+        )}
       </Stack>
       <Box
         sx={(theme) => ({
@@ -134,7 +158,7 @@ export const Navbar = () => {
               </ListItem>
               <ListItem>
                 {isLogin ? (
-                  <ListItemButton href="/">
+                  <ListItemButton onClick={onLogout}>
                     <ListItemIcon>
                       <Logout />
                     </ListItemIcon>

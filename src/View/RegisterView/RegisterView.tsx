@@ -15,6 +15,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { RegisterType, registerSchema } from "./schema";
 import { registerCompany } from "../../api/company";
 import { breakTheme } from "../../theme";
+import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { isLoginAuth } from "~/hooks";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -27,6 +30,7 @@ const StackDiv = styled("div")(({ theme }) => ({
 }));
 
 export const RegisterView = () => {
+  const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const {
     register,
@@ -35,12 +39,14 @@ export const RegisterView = () => {
   } = useForm<RegisterType>({
     resolver: zodResolver(registerSchema),
   });
-
+  const loginValue = useSetAtom(isLoginAuth);
   const onSubmit = async (data: RegisterType) => {
     registerCompany(data);
+    setTimeout(() => {
+      loginValue(true);
+      navigate("/");
+    }, 1000);
   };
-  const url = import.meta.env.VITE_API_URL;
-  console.log(url);
   return (
     <Stack justifyContent="center" alignItems="center" height="100%">
       <Box
