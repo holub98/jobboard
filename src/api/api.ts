@@ -4,8 +4,5 @@ const url = import.meta.env.VITE_API_URL;
 
 export const api = axios.create({
   baseURL: url,
-  headers: {
-    "Content-Type": "application/json",
-    "Access-Control-Allow-Origin": "*",
-  },
+  withCredentials: true,
 });
