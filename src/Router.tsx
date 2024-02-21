@@ -1,7 +1,38 @@
 import { RouteObject } from "react-router-dom";
-import { LoginView, RegisterView } from "./View";
+import {
+  CandidatePage,
+  CompanyJobOfferts,
+  LoginView,
+  RegisterView,
+  SingleOfferPage,
+} from "./View";
+import { ProtectedRoute } from "./components";
 
 export const routes: RouteObject[] = [
   { path: "/login", element: <LoginView /> },
   { path: "/signup", element: <RegisterView /> },
+  {
+    path: "/my-offerts",
+    element: (
+      <ProtectedRoute>
+        <CompanyJobOfferts />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/my-offerts/:offerId",
+    element: (
+      <ProtectedRoute>
+        <SingleOfferPage />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/my-offerts/:offerId/:candidateId",
+    element: (
+      <ProtectedRoute>
+        <CandidatePage />
+      </ProtectedRoute>
+    ),
+  },
 ];

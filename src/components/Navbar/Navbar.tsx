@@ -24,22 +24,22 @@ import {
   Work,
 } from "@mui/icons-material";
 import { logout } from "~/api";
-import { isLoginAuth } from "~/hooks";
-import { useAtom, useSetAtom } from "jotai";
+import { isLoginAuth, useAuth } from "~/hooks";
+import { useAtom } from "jotai";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const logoutValue = useSetAtom(isLoginAuth);
   const [isLogin] = useAtom(isLoginAuth);
   const navigate = useNavigate();
+
+  const { isLogout } = useAuth();
   const onLogout = () => {
     logout();
-    logoutValue(false);
+    isLogout();
     setTimeout(() => {
       navigate("/");
     }, 3000);
   };
-  console.log(isLogin);
   return (
     <Stack
       direction="row"
@@ -80,6 +80,16 @@ export const Navbar = () => {
         >
           Companies
         </Button>
+        {isLogin && (
+          <Button
+            variant="text"
+            href="/my-offerts"
+            size="large"
+            sx={{ fontWeight: "bold", color: `${blue[50]}` }}
+          >
+            My offerts
+          </Button>
+        )}
         {isLogin ? (
           <Fab
             variant="extended"
@@ -156,6 +166,16 @@ export const Navbar = () => {
                   <ListItemText primary={"Companies"} />
                 </ListItemButton>
               </ListItem>
+              {isLogin && (
+                <ListItem>
+                  <ListItemButton href="/my-offerts">
+                    <ListItemIcon>
+                      <Work />
+                    </ListItemIcon>
+                    <ListItemText primary={"My offerts"} />
+                  </ListItemButton>
+                </ListItem>
+              )}
               <ListItem>
                 {isLogin ? (
                   <ListItemButton onClick={onLogout}>

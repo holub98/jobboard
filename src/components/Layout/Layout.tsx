@@ -11,7 +11,9 @@ export const LayoutView = ({ children }: Props) => {
       <Box
         flex={1}
         style={{
-          padding: "64px",
+          paddingTop: "64px",
+          paddingLeft: "300px",
+          paddingRight: "300px",
         }}
       >
         {children}

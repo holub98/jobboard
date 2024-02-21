@@ -16,8 +16,7 @@ import { RegisterType, registerSchema } from "./schema";
 import { registerCompany } from "../../api/company";
 import { breakTheme } from "../../theme";
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
-import { isLoginAuth } from "~/hooks";
+import { useAuth } from "~/hooks";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -39,11 +38,13 @@ export const RegisterView = () => {
   } = useForm<RegisterType>({
     resolver: zodResolver(registerSchema),
   });
-  const loginValue = useSetAtom(isLoginAuth);
+
+  const { isRegister } = useAuth();
+
   const onSubmit = async (data: RegisterType) => {
     registerCompany(data);
     setTimeout(() => {
-      loginValue(true);
+      isRegister();
       navigate("/");
     }, 1000);
   };

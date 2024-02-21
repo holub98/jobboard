@@ -22,3 +22,5 @@ export const registerCompany = (data: RegisterType) =>
       console.log(res.data), console.log(res.headers);
     })
     .catch((err) => console.error(err));
+
+export const getCompany = () => api.get("/company/my-company");
