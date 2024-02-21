@@ -14,8 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginType, loginSchema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import { login } from "~/api";
-import { useSetAtom } from "jotai";
 import { isLoginAuth } from "~/hooks";
+import { useAtom } from "jotai";
 
 export const LoginView = () => {
   const navigate = useNavigate();
@@ -27,13 +27,13 @@ export const LoginView = () => {
   } = useForm<LoginType>({
     resolver: zodResolver(loginSchema),
   });
-  const loginValue = useSetAtom(isLoginAuth);
+
+  const [isLogin, setIsLogin] = useAtom(isLoginAuth);
 
   const onSubmit = async (data: LoginType) => {
     login(data);
-
+    setIsLogin(true);
     setTimeout(() => {
-      loginValue(true);
       navigate("/");
     }, 1000);
   };
