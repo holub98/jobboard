@@ -35,6 +35,3 @@ export const deleteOffer = (offerId: string) => {
 export const getMyOffers = () => api.get("/job-offer/my-offer");
 
 export const getMyOfferCount = () => api.get("/job-offer/my-offer-count");
-
-export const getSingleOffer = (offerId: string) =>
-  api.get(`/job-offer/${offerId}`);

@@ -8,17 +8,18 @@ import {
   Typography,
 } from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginType, loginSchema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import { login } from "~/api";
+import { useSetAtom } from "jotai";
 import { isLoginAuth } from "~/hooks";
-import { useAtom } from "jotai";
 
 export const LoginView = () => {
   const navigate = useNavigate();
+  const setLogin = useSetAtom(isLoginAuth);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const {
     register,
@@ -28,11 +29,11 @@ export const LoginView = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const [isLogin, setIsLogin] = useAtom(isLoginAuth);
-
   const onSubmit = async (data: LoginType) => {
     login(data);
-    setIsLogin(true);
+
+    setLogin({ ...data });
+
     setTimeout(() => {
       navigate("/");
     }, 1000);

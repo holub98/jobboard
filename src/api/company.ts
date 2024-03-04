@@ -1,4 +1,6 @@
+import { isLoginAuth } from "~/hooks";
 import { api } from "./api";
+import { useSetAtom } from "jotai";
 
 type LocalizationType = {
   country: string;
@@ -15,12 +17,14 @@ type RegisterType = {
   localization: LocalizationType;
 };
 
-export const registerCompany = (data: RegisterType) =>
+export const registerCompany = (data: RegisterType) => {
+  const setLogin = useSetAtom(isLoginAuth);
   api
     .post("/company/register", data)
     .then((res) => {
-      console.log(res.data), console.log(res.headers);
+      setLogin({ ...res.data });
     })
     .catch((err) => console.error(err));
+};
 
 export const getCompany = () => api.get("/company/my-company");

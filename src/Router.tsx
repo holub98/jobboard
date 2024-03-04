@@ -2,6 +2,7 @@ import { RouteObject } from "react-router-dom";
 import {
   CandidatePage,
   CompanyJobOfferts,
+  HomePage,
   LoginView,
   RegisterView,
   SingleOfferPage,
@@ -9,6 +10,7 @@ import {
 import { ProtectedRoute } from "./components";
 
 export const routes: RouteObject[] = [
+  { path: "", element: <HomePage /> },
   { path: "/login", element: <LoginView /> },
   { path: "/signup", element: <RegisterView /> },
   {

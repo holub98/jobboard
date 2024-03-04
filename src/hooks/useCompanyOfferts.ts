@@ -1,9 +1,5 @@
 import { useEffect, useState } from "react";
-import {
-  getMyOfferCount,
-  getMyOffers,
-  getSingleOffer,
-} from "~/api/companyOffer";
+import { getMyOfferCount, getMyOffers, getSingleOffer } from "~/api";
 
 type CompanyCount = {
   name: string;

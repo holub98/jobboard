@@ -61,7 +61,7 @@ export const OfferForm = ({ formContext, initialValue, onSubmit }: Props) => {
 
   const destination = useController({
     control: control,
-    name: "remotly",
+    name: "workDirection",
   });
 
   const requirements = useController({
@@ -159,6 +159,7 @@ export const OfferForm = ({ formContext, initialValue, onSubmit }: Props) => {
       </FormControl>
       <Autocomplete
         multiple
+        filterSelectedOptions
         options={tech}
         value={requirements.field.value}
         ref={requirements.field.ref}

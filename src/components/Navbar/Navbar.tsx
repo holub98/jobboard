@@ -24,18 +24,16 @@ import {
   Work,
 } from "@mui/icons-material";
 import { logout } from "~/api";
-import { isLoginAuth, useAuth } from "~/hooks";
-import { useAtom } from "jotai";
+import { isLoginAuth } from "~/hooks";
+import { useAtomValue } from "jotai";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isLogin] = useAtom(isLoginAuth);
   const navigate = useNavigate();
 
-  const { isLogout } = useAuth();
+  const isLogin = useAtomValue(isLoginAuth);
   const onLogout = () => {
     logout();
-    isLogout();
     setTimeout(() => {
       navigate("/");
     }, 3000);

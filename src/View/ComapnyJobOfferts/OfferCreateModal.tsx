@@ -21,7 +21,7 @@ export const OfferCreateModal = () => {
         from: "",
         to: "",
       },
-      remotly: "Office",
+      workDirection: "Office",
       requirements: [],
       description: "",
     },

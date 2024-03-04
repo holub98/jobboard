@@ -16,7 +16,6 @@ import { RegisterType, registerSchema } from "./schema";
 import { registerCompany } from "../../api/company";
 import { breakTheme } from "../../theme";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "~/hooks";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -39,12 +38,10 @@ export const RegisterView = () => {
     resolver: zodResolver(registerSchema),
   });
 
-  const { isRegister } = useAuth();
-
   const onSubmit = async (data: RegisterType) => {
     registerCompany(data);
+
     setTimeout(() => {
-      isRegister();
       navigate("/");
     }, 1000);
   };
