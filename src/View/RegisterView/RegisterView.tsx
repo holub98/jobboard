@@ -16,6 +16,8 @@ import { RegisterType, registerSchema } from "./schema";
 import { registerCompany } from "../../api/company";
 import { breakTheme } from "../../theme";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { isLoginAuth } from "~/hooks";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -30,6 +32,7 @@ const StackDiv = styled("div")(({ theme }) => ({
 export const RegisterView = () => {
   const navigate = useNavigate();
   const [isVisible, setIsVisible] = useState<boolean>(false);
+  const isAuth = useSetAtom(isLoginAuth);
   const {
     register,
     handleSubmit,
@@ -40,7 +43,7 @@ export const RegisterView = () => {
 
   const onSubmit = async (data: RegisterType) => {
     registerCompany(data);
-
+    isAuth((await registerCompany(data)).data);
     setTimeout(() => {
       navigate("/");
     }, 1000);

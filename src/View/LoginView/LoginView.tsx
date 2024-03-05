@@ -15,10 +15,12 @@ import { LoginType, loginSchema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import { login } from "~/api";
 import { useSetAtom } from "jotai";
+import { useSetAtom } from "jotai";
 import { isLoginAuth } from "~/hooks";
 
 export const LoginView = () => {
   const navigate = useNavigate();
+  const setLogin = useSetAtom(isLoginAuth);
   const setLogin = useSetAtom(isLoginAuth);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const {
@@ -32,7 +34,7 @@ export const LoginView = () => {
   const onSubmit = async (data: LoginType) => {
     login(data);
 
-    setLogin({ ...data });
+    setLogin((await login(data)).data);
 
     setTimeout(() => {
       navigate("/");

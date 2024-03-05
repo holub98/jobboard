@@ -17,14 +17,9 @@ type RegisterType = {
   localization: LocalizationType;
 };
 
-export const registerCompany = (data: RegisterType) => {
-  const setLogin = useSetAtom(isLoginAuth);
-  api
-    .post("/company/register", data)
-    .then((res) => {
-      setLogin({ ...res.data });
-    })
-    .catch((err) => console.error(err));
+export const registerCompany = async (data: RegisterType) => {
+  const response = await api.post("/company/register", data);
+  return response;
 };
 
 export const getCompany = () => api.get("/company/my-company");
