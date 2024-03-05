@@ -5,8 +5,9 @@ type LoginType = {
   password: string;
 };
 
-export const login = (data: LoginType) => {
-  api.post("/auth/login", data);
+export const login = async (data: LoginType) => {
+  const response = await api.post("/auth/login", data);
+  return response;
 };
 
 export const logout = () => {

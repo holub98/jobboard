@@ -9,12 +9,12 @@ import { Provider, createStore } from "jotai";
 const myStore = createStore();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={myStore}>
+    <Provider>
+      <BrowserRouter>
         <LayoutView>
           <App />
         </LayoutView>
-      </Provider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </Provider>
   </React.StrictMode>
 );

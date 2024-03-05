@@ -16,10 +16,10 @@ type Offers = {
 };
 export const useOffers = () => {
   const recomendedOffers = () => {
-    const [data, setData] = useState<Offers>();
+    const [data, setData] = useState<Offers[]>();
     useEffect(() => {
       getRecomeneded().then((res) => setData(res.data));
-    });
+    }, []);
 
     return data;
   };

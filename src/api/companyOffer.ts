@@ -14,12 +14,7 @@ type JobOfferType = {
 };
 
 export const createOffer = (data: JobOfferType) =>
-  api
-    .post("/job-offer/create", data)
-    .then((res) => {
-      console.log(res.data);
-    })
-    .catch((err) => console.error(err));
+  api.post("/job-offer/create", data);
 
 export const updateOffer = (data: JobOfferType, offerId: string) => {
   api
