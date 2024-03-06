@@ -68,7 +68,7 @@ export const Navbar = () => {
           variant="text"
           size="large"
           sx={{ fontWeight: "bold", color: `${blue[50]}` }}
-          href="/"
+          href="/offers/"
         >
           Offerts
         </Button>
