@@ -4,6 +4,7 @@ import {
   CompanyJobOfferts,
   HomePage,
   LoginView,
+  OfferView,
   RegisterView,
   SingleOfferPage,
 } from "./View";
@@ -13,6 +14,14 @@ export const routes: RouteObject[] = [
   { path: "", element: <HomePage /> },
   { path: "/login", element: <LoginView /> },
   { path: "/signup", element: <RegisterView /> },
+  {
+    path: "/offers",
+    element: <OfferView />,
+  },
+  {
+    path: "/offers/:search",
+    element: <OfferView />,
+  },
   {
     path: "/my-offerts",
     element: (

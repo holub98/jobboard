@@ -1,5 +1,7 @@
+import { useAtomValue } from "jotai";
 import { useEffect, useState } from "react";
-import { getRecomeneded } from "~/api";
+import { getAllOffers, getRecomeneded } from "~/api";
+import { filterAtom } from "~/state/filterSearch";
 
 type Earnings = {
   from: string;
@@ -23,6 +25,15 @@ export const useOffers = () => {
 
     return data;
   };
+  const allOffers = () => {
+    const [data, setData] = useState<Offers[]>();
+    const filter = useAtomValue(filterAtom);
 
-  return { recomendedOffers };
+    useEffect(() => {
+      getAllOffers(filter).then((res) => setData(res.data));
+    }, []);
+    return data;
+  };
+
+  return { recomendedOffers, allOffers };
 };
