@@ -4,7 +4,7 @@ import {
   CompanyJobOfferts,
   HomePage,
   LoginView,
-  OfferView,
+  OffersView,
   RegisterView,
   SingleOfferPage,
 } from "./View";
@@ -15,12 +15,12 @@ export const routes: RouteObject[] = [
   { path: "/login", element: <LoginView /> },
   { path: "/signup", element: <RegisterView /> },
   {
-    path: "/offers",
-    element: <OfferView />,
+    path: "/offers/:search",
+    element: <OffersView />,
   },
   {
-    path: "/offers/:search",
-    element: <OfferView />,
+    path: "/offers",
+    element: <OffersView />,
   },
   {
     path: "/my-offerts",
