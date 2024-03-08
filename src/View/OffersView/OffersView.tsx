@@ -3,7 +3,7 @@ import { SearchBar } from "~/components";
 import { useOffers } from "~/hooks/useOffers";
 import { filterAtom } from "~/state/filterSearch";
 
-export const OfferView = () => {
+export const OffersView = () => {
   const { allOffers } = useOffers();
   if (allOffers === undefined) {
     return null;
@@ -11,5 +11,5 @@ export const OfferView = () => {
   const filter = useAtomValue(filterAtom);
   const offers = allOffers();
   console.log(offers, filter);
-  return <SearchBar direction="row" />;
+  return <SearchBar direction="row" toClear={true} />;
 };

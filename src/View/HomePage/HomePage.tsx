@@ -23,7 +23,7 @@ export const HomePage = () => {
 
   return (
     <>
-      <SearchBar direction="row" />
+      <SearchBar direction="row" toClear={false} />
       <Box
         sx={{
           display: "flex",

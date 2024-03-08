@@ -13,9 +13,8 @@ import { FilterType, filterSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { tech } from "~/state/technologies";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useState } from "react";
-import { getAllOffers } from "~/api";
-import { useAtom } from "jotai";
+import { useEffect, useState } from "react";
+import { useAtom, useSetAtom } from "jotai";
 import { filterAtom } from "~/state/filterSearch";
 
 type OfferFilterType = {
@@ -27,9 +26,10 @@ type OfferFilterType = {
 
 type Props = {
   direction: "row" | "column";
+  toClear: boolean;
 };
 
-export const SearchBar = ({ direction }: Props) => {
+export const SearchBar = ({ direction, toClear }: Props) => {
   const [searchParams] = useSearchParams();
 
   const navigate = useNavigate();
@@ -44,6 +44,13 @@ export const SearchBar = ({ direction }: Props) => {
     useForm<FilterType>({
       resolver: zodResolver(filterSchema),
     });
+  useEffect(() => {
+    if (Object.keys(body).length === 0) {
+      reset();
+    } else {
+      reset(body);
+    }
+  }, [reset]);
   const onSubmit = async (data: FilterType) => {
     if (data.requirements) {
       body.requirements = data.requirements.join("_");
@@ -62,11 +69,10 @@ export const SearchBar = ({ direction }: Props) => {
       searchParams.set("workDirection", "remote");
     }
 
-    getAllOffers(body);
     if (Object.keys(body).length === 0) {
       navigate("/offers");
     } else {
-      navigate(`/offers/search?${searchParams}`);
+      navigate(`/offers/?${searchParams}`);
     }
     setFilter(body);
   };
@@ -83,8 +89,8 @@ export const SearchBar = ({ direction }: Props) => {
 
   const onClear = () => {
     setFilter({});
+    reset();
     navigate("/offers");
-    getAllOffers(body);
   };
   return (
     <Box
@@ -157,9 +163,11 @@ export const SearchBar = ({ direction }: Props) => {
 
           <TextField label="Localization" {...register("localization")} />
         </Stack>
-        <Button onClick={onClear} sx={{ height: "56px" }}>
-          Clear
-        </Button>
+        {toClear && (
+          <Button onClick={onClear} sx={{ height: "56px" }}>
+            Clear
+          </Button>
+        )}
         <Button sx={{ height: "56px" }} type="submit">
           Search
         </Button>
