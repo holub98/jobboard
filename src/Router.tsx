@@ -7,6 +7,7 @@ import {
   OffersView,
   RegisterView,
   SingleOfferPage,
+  SingleOfferView,
 } from "./View";
 import { ProtectedRoute } from "./components";
 
@@ -21,6 +22,10 @@ export const routes: RouteObject[] = [
   {
     path: "/offers",
     element: <OffersView />,
+  },
+  {
+    path: "offer/:offerId",
+    element: <SingleOfferView />,
   },
   {
     path: "/my-offerts",

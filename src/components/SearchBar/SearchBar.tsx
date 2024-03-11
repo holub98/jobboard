@@ -13,8 +13,8 @@ import { FilterType, filterSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { tech } from "~/state/technologies";
 import { useNavigate, useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { useAtom, useSetAtom } from "jotai";
+import { useState } from "react";
+import { useSetAtom } from "jotai";
 import { filterAtom } from "~/state/filterSearch";
 
 type OfferFilterType = {
@@ -36,21 +36,16 @@ export const SearchBar = ({ direction, toClear }: Props) => {
 
   const [check, setCheck] = useState<boolean>(false);
 
-  const [filter, setFilter] = useAtom(filterAtom);
+  const setFilter = useSetAtom(filterAtom);
 
   let body: OfferFilterType = {};
 
   const { control, register, handleSubmit, setValue, reset } =
     useForm<FilterType>({
+      defaultValues: {},
       resolver: zodResolver(filterSchema),
     });
-  useEffect(() => {
-    if (Object.keys(body).length === 0) {
-      reset();
-    } else {
-      reset(body);
-    }
-  }, [reset]);
+
   const onSubmit = async (data: FilterType) => {
     if (data.requirements) {
       body.requirements = data.requirements.join("_");
@@ -74,6 +69,7 @@ export const SearchBar = ({ direction, toClear }: Props) => {
     } else {
       navigate(`/offers/?${searchParams}`);
     }
+
     setFilter(body);
   };
 
@@ -91,6 +87,7 @@ export const SearchBar = ({ direction, toClear }: Props) => {
     setFilter({});
     reset();
     navigate("/offers");
+    navigate(0);
   };
   return (
     <Box
@@ -121,6 +118,7 @@ export const SearchBar = ({ direction, toClear }: Props) => {
               defaultValue={undefined}
               render={({ field }) => (
                 <Autocomplete
+                  {...field}
                   onChange={(_, newValue) => {
                     if (newValue !== null) field.onChange(newValue);
                   }}

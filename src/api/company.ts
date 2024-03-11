@@ -1,6 +1,4 @@
-import { isLoginAuth } from "~/hooks";
 import { api } from "./api";
-import { useSetAtom } from "jotai";
 
 type LocalizationType = {
   country: string;

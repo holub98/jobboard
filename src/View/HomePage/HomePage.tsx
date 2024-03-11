@@ -47,12 +47,14 @@ export const HomePage = () => {
                 <CardContent sx={{ gap: "4px" }}>
                   <Typography variant="h6">Tech stack:</Typography>
                   {it.requirements.slice(0, 3).map((it) => {
-                    return <Chip label={it} sx={{ marginRight: "4px" }} />;
+                    return (
+                      <Chip key={it} label={it} sx={{ marginRight: "4px" }} />
+                    );
                   })}
                 </CardContent>
 
                 <CardActions>
-                  <Button>More</Button>
+                  <Button href={`/offer/${it._id}`}>More</Button>
                 </CardActions>
               </Card>
             );
