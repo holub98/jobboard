@@ -28,7 +28,7 @@ export const routes: RouteObject[] = [
     element: <SingleOfferView />,
   },
   {
-    path: "/my-offerts",
+    path: "/my-offers",
     element: (
       <ProtectedRoute>
         <CompanyJobOfferts />
@@ -36,7 +36,7 @@ export const routes: RouteObject[] = [
     ),
   },
   {
-    path: "/my-offerts/:offerId",
+    path: "/my-offers/:offerId",
     element: (
       <ProtectedRoute>
         <SingleOfferPage />
@@ -44,7 +44,7 @@ export const routes: RouteObject[] = [
     ),
   },
   {
-    path: "/my-offerts/:offerId/:candidateId",
+    path: "/my-offers/:offerId/:candidateId",
     element: (
       <ProtectedRoute>
         <CandidatePage />
