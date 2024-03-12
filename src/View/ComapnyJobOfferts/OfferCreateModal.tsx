@@ -34,6 +34,7 @@ export const OfferCreateModal = () => {
     createOffer(data);
     setIsOpen(false);
     reset();
+    console.log("dupa");
   };
   const onClose = () => {
     setIsOpen(false);

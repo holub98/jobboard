@@ -1,6 +1,7 @@
 import { ArrowBack, Business, Home, HomeWork } from "@mui/icons-material";
-import { Button, Chip, IconButton, Stack, Typography } from "@mui/material";
+import { Chip, IconButton, Stack, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
+import { CandidateApplyModal } from "~/components";
 import { useOffers } from "~/hooks/useOffers";
 
 export const SingleOfferView = () => {
@@ -26,7 +27,11 @@ export const SingleOfferView = () => {
         >
           <ArrowBack />
         </IconButton>
-        <Button>Apply</Button>
+        <CandidateApplyModal
+          offerId={offerId}
+          companyName={data.company.name}
+          offerName={data.offer.name}
+        />
       </Stack>
 
       <Stack
