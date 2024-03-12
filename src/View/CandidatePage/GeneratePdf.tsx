@@ -10,6 +10,7 @@ export const GeneratePdf = ({ initialData }: Props) => {
       <Page size="A4">
         <View>
           <Text>{initialData.firstName}</Text>
+          <Text>aaa</Text>
         </View>
       </Page>
     </Document>

@@ -82,7 +82,7 @@ export const CompanyJobOfferts = () => {
                   </Stack>
                 )}
                 <Stack direction="row" gap="2px">
-                  <IconButton href={`/my-offerts/${it._id}`}>
+                  <IconButton href={`/my-offers/${it._id}`}>
                     <AssignmentOutlined />
                   </IconButton>
                   <OfferUpdateModal initialData={it} />

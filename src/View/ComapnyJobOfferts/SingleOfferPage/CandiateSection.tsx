@@ -38,7 +38,7 @@ export const CandiateSection = ({ candidates }: Props) => {
             <Typography variant="h6">
               {it.firstName} {it.lastName}
             </Typography>
-            <Button variant="text" href={`/my-offerts/${it.offerId}/${it._id}`}>
+            <Button variant="text" href={`/my-offers/${it.offerId}/${it._id}`}>
               More details
             </Button>
             <Stack gap={1}>

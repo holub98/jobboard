@@ -83,11 +83,11 @@ export const Navbar = () => {
         {isLogin && (
           <Button
             variant="text"
-            href="/my-offerts"
+            href="/my-offers"
             size="large"
             sx={{ fontWeight: "bold", color: `${blue[50]}` }}
           >
-            My offerts
+            My offers
           </Button>
         )}
         {isLogin ? (
@@ -155,7 +155,7 @@ export const Navbar = () => {
                   <ListItemIcon>
                     <LocalOffer />
                   </ListItemIcon>
-                  <ListItemText primary={"Oferts"} />
+                  <ListItemText primary={"Ofers"} />
                 </ListItemButton>
               </ListItem>
               <ListItem>

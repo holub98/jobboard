@@ -36,7 +36,7 @@ export const OfferSection = ({ offer }: Props) => {
         {offer.workDirection === "Remote" && (
           <Stack direction="row" alignItems="center" gap="2px">
             <Home />
-            <Typography variant="h6">Work</Typography>
+            <Typography variant="h6">Remote</Typography>
           </Stack>
         )}
         <Typography variant="h6">

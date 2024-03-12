@@ -44,7 +44,7 @@ export const useCompanyOffers = () => {
   const mySingleOffer = (singleId: string) => {
     const [data, setData] = useState<myOffers>();
     useEffect(() => {
-      getSingleOffer(singleId).then((res) => setData(res.data));
+      getSingleOffer(singleId).then((res) => setData(res.data.offer));
     }, []);
     return data;
   };
