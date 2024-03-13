@@ -3,8 +3,8 @@ import { z } from "zod";
 const experienceSchema = z.object({
   companyName: z.string(),
   job: z.string(),
-  dateFrom: z.date(),
-  dateTo: z.date().optional(),
+  dateFrom: z.string(),
+  dateTo: z.string().optional(),
 });
 const educationSchema = z.object({
   schoolName: z.string(),
@@ -14,18 +14,18 @@ const educationSchema = z.object({
 });
 const languageSchema = z.object({
   name: z.string(),
-  level: z.enum(["A1", "A2", "B1", "B2", "C1", "C2", "Fluent"]),
+  level: z.enum(["A1", "A2", "B1", "B2", "C1", "C2", "Native"]),
 });
 export const applySchema = z.object({
   offerId: z.string(),
-  firstName: z.string(),
-  lastName: z.string(),
-  email: z.string(),
-  phone: z.string(),
+  firstName: z.string().min(1),
+  lastName: z.string().min(1),
+  email: z.string().min(1),
+  phone: z.string().min(1),
   experience: experienceSchema.array().optional(),
-  education: educationSchema.array(),
-  languages: languageSchema.array(),
-  stack: z.string().array(),
+  education: educationSchema.array().min(1),
+  languages: languageSchema.array().min(1),
+  stack: z.string().array().min(1),
   another: z.string(),
 });
 

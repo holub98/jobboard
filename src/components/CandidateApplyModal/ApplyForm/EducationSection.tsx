@@ -4,25 +4,25 @@ import { ApplyType } from "../schema";
 import { useState } from "react";
 import { DatePicker } from "@mui/x-date-pickers";
 
-type ExperienceType = {
-  companyName: string;
-  job: string;
+export type EducationType = {
+  schoolName: string;
+  faculty: string;
   dateFrom: string;
   dateTo: string;
 };
 type Props = {
   formContext: UseFormReturn<ApplyType>;
 };
-export const ExperienceSection = ({ formContext }: Props) => {
+export const EducationSection = ({ formContext }: Props) => {
   const { control, trigger } = formContext;
 
   const { fields, append, remove } = useFieldArray({
     control: control,
-    name: "experience",
+    name: "education",
   });
-  const [value, setValue] = useState<ExperienceType>({
-    companyName: "",
-    job: "",
+  const [value, setValue] = useState<EducationType>({
+    schoolName: "",
+    faculty: "",
     dateFrom: "",
     dateTo: "",
   });
@@ -34,8 +34,8 @@ export const ExperienceSection = ({ formContext }: Props) => {
 
     append(value);
     setValue({
-      companyName: "",
-      job: "",
+      schoolName: "",
+      faculty: "",
       dateFrom: "",
       dateTo: "",
     });
@@ -58,16 +58,16 @@ export const ExperienceSection = ({ formContext }: Props) => {
   };
   return (
     <Stack>
-      <Typography>Experience</Typography>
+      <Typography>Education</Typography>
 
       {fields.map((field, index) => {
         return (
           <Stack key={field.id}>
-            <Typography>{field.companyName}</Typography>
-            <Typography>{field.job}</Typography>
+            <Typography>{field.schoolName}</Typography>
+            <Typography>{field.faculty}</Typography>
             <Typography>{field.dateFrom}</Typography>
             <Typography>
-              {field.dateTo === undefined ? "preset" : field.dateTo}
+              {field.dateTo === "" ? "preset" : field.dateTo}
             </Typography>
             <Button onClick={() => handleRemove(index)}>Delete</Button>
           </Stack>
@@ -75,17 +75,17 @@ export const ExperienceSection = ({ formContext }: Props) => {
       })}
       <Stack>
         <TextField
-          label="Company name"
-          value={value.companyName}
+          label="School name"
+          value={value.schoolName}
           onChange={(e) =>
-            setValue((prev) => ({ ...prev, companyName: e.target.value }))
+            setValue((prev) => ({ ...prev, schoolName: e.target.value }))
           }
         />
         <TextField
-          label="Position"
-          value={value.job}
+          label="Faculty"
+          value={value.faculty}
           onChange={(e) =>
-            setValue((prev) => ({ ...prev, job: e.target.value }))
+            setValue((prev) => ({ ...prev, faculty: e.target.value }))
           }
         />
 

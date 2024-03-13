@@ -2,8 +2,8 @@ import { api } from ".";
 export type ExperienceType = {
   companyName: string;
   job: string;
-  dateFrom: Date;
-  dateTo?: Date;
+  dateFrom: string;
+  dateTo?: string;
 };
 
 export type EducationType = {
@@ -36,4 +36,4 @@ export const getSingleCandidate = (offerId: string, candidateId: string) =>
   api.get(`/candidates/${offerId}/${candidateId}`);
 
 export const applyCandidate = (offerId: string, data: CandidateType) =>
-  api.post(`/${offerId}/send`, data);
+  api.post(`/candidates/${offerId}/send`, data);

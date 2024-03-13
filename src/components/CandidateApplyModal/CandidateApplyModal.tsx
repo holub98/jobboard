@@ -7,16 +7,13 @@ import {
   DialogContent,
   DialogTitle,
   FormControl,
-  Stack,
   TextField,
-  Typography,
   styled,
 } from "@mui/material";
 import { useRef, useState } from "react";
-import { Controller, useFieldArray, useForm } from "react-hook-form";
-import { ApplyType } from "./schema";
+import { Controller, useForm } from "react-hook-form";
+import { ApplyType, applySchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { offerSchema } from "~/View/ComapnyJobOfferts/schema";
 import { applyCandidate } from "~/api";
 import { breakTheme } from "~/theme";
 import {
@@ -37,8 +34,9 @@ import {
 import { EditorEvents } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
 import { tech } from "~/state/technologies";
-import { DatePicker } from "@mui/x-date-pickers";
 import { ExperienceSection } from "./ApplyForm/ExperienceSection";
+import { EducationSection } from "./ApplyForm/EducationSection";
+import { LanguageSection } from "./ApplyForm/LanguageSection";
 
 type Props = {
   offerId: string;
@@ -74,8 +72,10 @@ export const CandidateApplyModal = ({
       stack: [],
       another: "",
     },
-    resolver: zodResolver(offerSchema),
+    resolver: zodResolver(applySchema),
   });
+
+  const rteRef = useRef<RichTextEditorRef>(null);
   const {
     register,
     handleSubmit,
@@ -84,26 +84,6 @@ export const CandidateApplyModal = ({
     setValue,
     control,
   } = form;
-
-  const {
-    fields: educations,
-    append: addEducation,
-    remove: removeEducation,
-  } = useFieldArray({
-    control: control,
-    name: "education",
-  });
-  const {
-    fields: languages,
-    append: addLanguage,
-    remove: removeLanguage,
-  } = useFieldArray({
-    control: control,
-    name: "languages",
-  });
-
-  const rteRef = useRef<RichTextEditorRef>(null);
-
   const handleRteOnCreate = (props: EditorEvents["create"]) => {
     props.editor.commands.setContent({ ...register("another") });
   };
@@ -114,12 +94,13 @@ export const CandidateApplyModal = ({
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onSubmit = (data: ApplyType) => {
     applyCandidate(offerId, data);
+    setIsOpen(false);
   };
   const onClose = () => {
     setIsOpen(false), reset();
   };
-  console.log(errors, offerId);
 
+  console.log(errors);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Apply</Button>
@@ -175,32 +156,8 @@ export const CandidateApplyModal = ({
               />
             </StackDiv>
             <ExperienceSection formContext={form} />
-            <Stack>
-              <Typography>Education</Typography>
-
-              {educations.map((field, index) => {
-                return (
-                  <Stack key={field.id}>
-                    <Typography>{`educations.${index}.schoolName`}</Typography>
-                    <Typography>{`educations.${index}.faculty`}</Typography>
-                    <Typography>{`educations.${index}.dateFrom`}</Typography>
-                    <Typography>{`educations.${index}.dateTo`}</Typography>
-                  </Stack>
-                );
-              })}
-            </Stack>
-            <Stack>
-              <Typography>Languages</Typography>
-
-              {languages.map((field, index) => {
-                return (
-                  <Stack key={field.id}>
-                    <Typography>{`languages.${index}.name`}</Typography>
-                    <Typography>{`languages.${index}.level`}</Typography>
-                  </Stack>
-                );
-              })}
-            </Stack>
+            <EducationSection formContext={form} />
+            <LanguageSection formContext={form} />
             <FormControl>
               <Controller
                 name="stack"
