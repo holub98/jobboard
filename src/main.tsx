@@ -4,17 +4,18 @@ import App from "./App.tsx";
 import "./index.css";
 import { BrowserRouter } from "react-router-dom";
 import { LayoutView } from "./components/index.ts";
-import { Provider, createStore } from "jotai";
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFnsV3";
+import { pl } from "date-fns/locale";
 
-const myStore = createStore();
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Provider>
+    <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={pl}>
       <BrowserRouter>
         <LayoutView>
           <App />
         </LayoutView>
       </BrowserRouter>
-    </Provider>
+    </LocalizationProvider>
   </React.StrictMode>
 );

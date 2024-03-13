@@ -49,5 +49,6 @@ export const useCandidate = () => {
     }, []);
     return data;
   };
+
   return { myCandidates, singleCandidate };
 };
