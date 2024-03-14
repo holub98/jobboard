@@ -95,6 +95,8 @@ export const CandidateApplyModal = ({
   const onSubmit = (data: ApplyType) => {
     applyCandidate(offerId, data);
     setIsOpen(false);
+
+    console.log(data);
   };
   const onClose = () => {
     setIsOpen(false), reset();

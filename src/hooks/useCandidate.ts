@@ -5,14 +5,13 @@ export type ExperienceType = {
   companyName: string;
   job: string;
   dateFrom: string;
-  dateTo?: string;
-  description: string;
+  dateTo: string;
 };
 
 export type EducationType = {
   schoolName: string;
   dateFrom: string;
-  dateTo?: string;
+  dateTo: string;
   faculty: string;
 };
 export type LanguagesType = {
@@ -34,6 +33,39 @@ export type CandidateType = {
   another: string;
 };
 
+export type Earnings = {
+  from: string;
+  to: string;
+};
+
+export type Offers = {
+  _id: string;
+  name: string;
+  earnings: Earnings;
+  workDirection: "Remote" | "PartlyRemote" | "Office";
+  requirements: string[];
+  description: string;
+};
+
+export type CompanyType = {
+  _id: string;
+  name: string;
+  localization: LocalizationType;
+};
+export type LocalizationType = {
+  country: string;
+  city: string;
+  street: string;
+  number: string;
+  zipCode: string;
+};
+
+export type CandidateFullInfoType = {
+  candidate: CandidateType;
+  offer: Offers;
+  company: CompanyType;
+};
+
 export const useCandidate = () => {
   const myCandidates = (offerId: string) => {
     const [data, setData] = useState<CandidateType[]>();
@@ -43,7 +75,7 @@ export const useCandidate = () => {
     return data;
   };
   const singleCandidate = (offerId: string, candidateId: string) => {
-    const [data, setData] = useState<CandidateType>();
+    const [data, setData] = useState<CandidateFullInfoType>();
     useEffect(() => {
       getSingleCandidate(offerId, candidateId).then((res) => setData(res.data));
     }, []);

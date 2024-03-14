@@ -10,7 +10,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ArrowBackOutlined } from "@mui/icons-material";
 import { useCandidate } from "~/hooks/useCandidate";
 import { PDFDownloadLink } from "@react-pdf/renderer";
-import { GeneratePdf } from "./GeneratePdf";
+import { CandidateResumePdf } from "./GeneratePDF";
 
 export const CandidatePage = () => {
   const { offerId, candidateId } = useParams();
@@ -21,12 +21,12 @@ export const CandidatePage = () => {
     return null;
   }
 
-  const candidate = singleCandidate(offerId, candidateId);
+  const data = singleCandidate(offerId, candidateId);
 
-  if (candidate === undefined) {
+  if (data === undefined) {
     return null;
   }
-
+  console.log(data);
   return (
     <Stack height="100%">
       <Stack direction="row" alignItems="center" justifyContent="space-between">
@@ -40,8 +40,8 @@ export const CandidatePage = () => {
         </Stack>
 
         <PDFDownloadLink
-          document={<GeneratePdf initialData={candidate} />}
-          fileName={`${candidate.firstName}-${candidate.lastName}.pdf`}
+          document={<CandidateResumePdf data={data} />}
+          fileName={`${data.candidate.firstName}-${data.candidate.lastName}-${data.offer.name}.pdf`}
         >
           {({ loading }) =>
             loading ? "Loading document..." : <Button>Generate PDF</Button>
@@ -65,16 +65,16 @@ export const CandidatePage = () => {
             <Stack direction="row" gap={1}>
               <Typography>Full name: </Typography>
               <Typography>
-                {candidate.firstName} {candidate.lastName}
+                {data.candidate.firstName} {data.candidate.lastName}
               </Typography>
             </Stack>
             <Stack direction="row" gap={1}>
               <Typography>Email:</Typography>
-              <Typography>{candidate.email}</Typography>
+              <Typography>{data.candidate.email}</Typography>
             </Stack>
             <Stack direction="row" gap={1}>
               <Typography>Phone:</Typography>
-              <Typography>{candidate.phone}</Typography>
+              <Typography>{data.candidate.phone}</Typography>
             </Stack>
           </Stack>
         </Stack>
@@ -93,7 +93,7 @@ export const CandidatePage = () => {
           >
             <Typography variant="h6">Stack:</Typography>
             <Stack direction="row" gap="16px" flexWrap="wrap">
-              {candidate.stack.map((it) => {
+              {data.candidate.stack.map((it) => {
                 return (
                   <Typography key={it} variant="body1">
                     {it}
@@ -116,7 +116,7 @@ export const CandidatePage = () => {
           >
             <Typography variant="h6">Languages:</Typography>
             <Stack direction="row" gap="16px" flexWrap="wrap">
-              {candidate.languages.map((it) => {
+              {data.candidate.languages.map((it) => {
                 return (
                   <Stack direction="row" gap={1}>
                     <Typography fontWeight="bold">{it.name} -</Typography>
@@ -140,7 +140,7 @@ export const CandidatePage = () => {
         >
           <Typography variant="h6">Experience:</Typography>
           <Stack direction="row" gap="16px" flexWrap="wrap">
-            {candidate.experience?.map((it) => {
+            {data.candidate.experience?.map((it) => {
               return (
                 <Box key={it.companyName}>
                   <Typography variant="body1" fontWeight="bold">
@@ -173,7 +173,7 @@ export const CandidatePage = () => {
         >
           <Typography variant="h6">Education:</Typography>
           <Stack direction="row" gap="16px" flexWrap="wrap">
-            {candidate.education.map((it) => {
+            {data.candidate.education.map((it) => {
               return (
                 <Box key={it.schoolName}>
                   <Typography variant="body1" fontWeight="bold">
