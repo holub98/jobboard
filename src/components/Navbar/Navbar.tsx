@@ -74,7 +74,7 @@ export const Navbar = () => {
         </Button>
         <Button
           variant="text"
-          href="/"
+          href="/company"
           size="large"
           sx={{ fontWeight: "bold", color: `${blue[50]}` }}
         >

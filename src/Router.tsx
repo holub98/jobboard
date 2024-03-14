@@ -1,7 +1,9 @@
 import { RouteObject } from "react-router-dom";
 import {
   CandidatePage,
+  CompaniesPage,
   CompanyJobOfferts,
+  CompanySinglePage,
   HomePage,
   LoginView,
   OffersView,
@@ -26,6 +28,14 @@ export const routes: RouteObject[] = [
   {
     path: "offer/:offerId",
     element: <SingleOfferView />,
+  },
+  {
+    path: "/company",
+    element: <CompaniesPage />,
+  },
+  {
+    path: "/company/:companyId",
+    element: <CompanySinglePage />,
   },
   {
     path: "/my-offers",

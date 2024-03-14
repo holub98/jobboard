@@ -21,3 +21,8 @@ export const registerCompany = async (data: RegisterType) => {
 };
 
 export const getCompany = () => api.get("/company/my-company");
+
+export const getAllCompanies = () => api.get("/company/");
+
+export const getSingleCompany = (companyId: string) =>
+  api.get(`/company/${companyId}`);
