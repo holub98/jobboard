@@ -2,7 +2,7 @@ import { api } from ".";
 
 type Direction = "Remote" | "PartlyRemote" | "Office";
 
-type JobOfferType = {
+export type JobOfferType = {
   name: string;
   earnings: {
     from: string;
