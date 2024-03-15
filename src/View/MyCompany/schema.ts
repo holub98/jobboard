@@ -8,11 +8,12 @@ const localizationSchema = z.object({
   zipCode: z.string().min(1),
 });
 
-export const registerSchema = z.object({
+export const companySchema = z.object({
   email: z.string().min(1),
   password: z.string().min(1),
   name: z.string().min(1),
   localization: localizationSchema,
+  description: z.string().min(1),
 });
 
-export type RegisterType = z.infer<typeof registerSchema>;
+export type CompanyType = z.infer<typeof companySchema>;

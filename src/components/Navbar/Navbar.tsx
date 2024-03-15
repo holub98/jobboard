@@ -90,6 +90,16 @@ export const Navbar = () => {
             My offers
           </Button>
         )}
+        {isLogin && (
+          <Button
+            variant="text"
+            href="/me"
+            size="large"
+            sx={{ fontWeight: "bold", color: `${blue[50]}` }}
+          >
+            My account
+          </Button>
+        )}
         {isLogin ? (
           <Fab
             variant="extended"
@@ -151,7 +161,7 @@ export const Navbar = () => {
             <Divider />
             <List>
               <ListItem>
-                <ListItemButton href="/">
+                <ListItemButton href="/offers">
                   <ListItemIcon>
                     <LocalOffer />
                   </ListItemIcon>
@@ -159,7 +169,7 @@ export const Navbar = () => {
                 </ListItemButton>
               </ListItem>
               <ListItem>
-                <ListItemButton href="/">
+                <ListItemButton href="/company">
                   <ListItemIcon>
                     <Work />
                   </ListItemIcon>
@@ -168,7 +178,7 @@ export const Navbar = () => {
               </ListItem>
               {isLogin && (
                 <ListItem>
-                  <ListItemButton href="/my-offerts">
+                  <ListItemButton href="/my-offers">
                     <ListItemIcon>
                       <Work />
                     </ListItemIcon>

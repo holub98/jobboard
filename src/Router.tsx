@@ -6,6 +6,7 @@ import {
   CompanySinglePage,
   HomePage,
   LoginView,
+  MyCompany,
   OffersView,
   RegisterView,
   SingleOfferPage,
@@ -36,6 +37,14 @@ export const routes: RouteObject[] = [
   {
     path: "/company/:companyId",
     element: <CompanySinglePage />,
+  },
+  {
+    path: "/me",
+    element: (
+      <ProtectedRoute>
+        <MyCompany />
+      </ProtectedRoute>
+    ),
   },
   {
     path: "/my-offers",

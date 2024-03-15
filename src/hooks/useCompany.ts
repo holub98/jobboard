@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getAllCompanies, getSingleCompany } from "~/api";
+import { getAllCompanies, getMyCompany, getSingleCompany } from "~/api";
 
 type Localization = {
   country: string;
@@ -45,6 +45,18 @@ export type AllCompanyInfo = {
   actualOffers: number;
 };
 
+export type MyCompany = {
+  company: {
+    _id: string;
+    email: string;
+    password: string;
+    name: string;
+    localization: Localization;
+    description: string;
+  };
+  myOffersCount: number;
+};
+
 export const useCompanies = () => {
   const allCompanies = () => {
     const [data, setData] = useState<AllCompanyInfo[]>();
@@ -62,5 +74,13 @@ export const useCompanies = () => {
     return data;
   };
 
-  return { allCompanies, singleCompany };
+  const myCompany = () => {
+    const [data, setData] = useState<MyCompany>();
+    useEffect(() => {
+      getMyCompany().then((res) => setData(res.data));
+    }, []);
+    return data;
+  };
+
+  return { allCompanies, singleCompany, myCompany };
 };
