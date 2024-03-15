@@ -16,9 +16,10 @@ import { deleteOffer } from "~/api/companyOffer";
 
 type Props = {
   initialData: OfferType;
+  offerId: string;
 };
 
-export const OfferDeleteModal = ({ initialData }: Props) => {
+export const OfferDeleteModal = ({ initialData, offerId }: Props) => {
   const form = useForm<OfferType>({
     defaultValues: initialData,
     resolver: zodResolver(offerSchema),
@@ -27,7 +28,7 @@ export const OfferDeleteModal = ({ initialData }: Props) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onSubmit = async () => {
-    deleteOffer(initialData._id);
+    deleteOffer(offerId);
     setIsOpen(false);
     reset();
   };

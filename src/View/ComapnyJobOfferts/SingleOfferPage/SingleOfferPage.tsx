@@ -36,8 +36,8 @@ export const SingleOfferPage = () => {
           </Typography>
         </Stack>
         <Stack direction="row">
-          <OfferUpdateModal initialData={offer} />
-          <OfferDeleteModal initialData={offer} />
+          <OfferUpdateModal initialData={offer} offerId={offerId} />
+          <OfferDeleteModal initialData={offer} offerId={offerId} />
         </Stack>
       </Stack>
       <Stack direction="row" gap={2} height="100%">

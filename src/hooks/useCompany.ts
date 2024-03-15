@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllCompanies, getMyCompany, getSingleCompany } from "~/api";
 
 type Localization = {
@@ -60,25 +60,60 @@ export type MyCompany = {
 export const useCompanies = () => {
   const allCompanies = () => {
     const [data, setData] = useState<AllCompanyInfo[]>();
+    const fetchCompanies = useMemo(
+      () => async () => {
+        try {
+          const response = await getAllCompanies();
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getAllCompanies().then((res) => setData(res.data));
-    }, []);
+      fetchCompanies();
+    }, [fetchCompanies]);
+
     return data;
   };
 
   const singleCompany = (companyId: string) => {
     const [data, setData] = useState<SingleCompanyInfo>();
+    const fetchCompany = useMemo(
+      () => async () => {
+        try {
+          const response = await getSingleCompany(companyId);
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getSingleCompany(companyId).then((res) => setData(res.data));
-    }, []);
+      fetchCompany();
+    }, [fetchCompany]);
     return data;
   };
 
   const myCompany = () => {
     const [data, setData] = useState<MyCompany>();
+    const fetchMyCompany = useMemo(
+      () => async () => {
+        try {
+          const response = await getMyCompany();
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getMyCompany().then((res) => setData(res.data));
-    }, []);
+      fetchMyCompany();
+    }, [fetchMyCompany]);
+
     return data;
   };
 

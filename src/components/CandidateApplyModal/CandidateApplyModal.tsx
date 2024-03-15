@@ -37,6 +37,7 @@ import { tech } from "~/state/technologies";
 import { ExperienceSection } from "./ApplyForm/ExperienceSection";
 import { EducationSection } from "./ApplyForm/EducationSection";
 import { LanguageSection } from "./ApplyForm/LanguageSection";
+import { useNavigate } from "react-router-dom";
 
 type Props = {
   offerId: string;
@@ -74,7 +75,7 @@ export const CandidateApplyModal = ({
     },
     resolver: zodResolver(applySchema),
   });
-
+  const navigate = useNavigate();
   const rteRef = useRef<RichTextEditorRef>(null);
   const {
     register,
@@ -95,6 +96,7 @@ export const CandidateApplyModal = ({
   const onSubmit = (data: ApplyType) => {
     applyCandidate(offerId, data);
     setIsOpen(false);
+    navigate(0);
 
     console.log(data);
   };

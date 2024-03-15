@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getMyOfferCount, getMyOffers, getSingleOffer } from "~/api";
 
 type CompanyCount = {
@@ -23,29 +23,65 @@ type myOffers = {
 export const useCompanyOffers = () => {
   const companyOfferInfo = () => {
     const [data, setData] = useState<CompanyCount>({ name: "", count: 0 });
+
+    const fetchMyOffers = useMemo(
+      () => async () => {
+        try {
+          const response = await getMyOfferCount();
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getMyOfferCount().then((res) => {
-        setData(res.data);
-      });
-    }, []);
+      fetchMyOffers();
+    }, [fetchMyOffers]);
+
     return data;
   };
 
   const myOffers = () => {
     const [data, setData] = useState<myOffers[]>();
+    const fetchMyOffers = useMemo(
+      () => async () => {
+        try {
+          const response = await getMyOffers();
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getMyOffers().then((res) => setData(res.data));
-    }, []);
-    if (data === undefined) return [];
+      fetchMyOffers();
+    }, [fetchMyOffers]);
 
+    if (data === undefined) return [];
+    console.log(data);
     return data;
   };
 
   const mySingleOffer = (singleId: string) => {
     const [data, setData] = useState<myOffers>();
+
+    const fetchMyOffers = useMemo(
+      () => async () => {
+        try {
+          const response = await getSingleOffer(singleId);
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getSingleOffer(singleId).then((res) => setData(res.data.offer));
-    }, []);
+      fetchMyOffers();
+    }, [fetchMyOffers]);
+
     return data;
   };
   return { companyOfferInfo, myOffers, mySingleOffer };

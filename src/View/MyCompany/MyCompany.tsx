@@ -1,10 +1,10 @@
-import { Delete } from "@mui/icons-material";
-import { IconButton, Paper, Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import { useCompanies } from "~/hooks/useCompany";
 import { InfoUpdateModal } from "./InfoUpdateModal";
 import { LocalizationUpdateModal } from "./LocalizationUpdateModal";
 import { DescriptionUpdateModal } from "./DescriptionUpdateModal";
+import { CloseAccountModal } from "./CloseAccountModal";
 
 export const MyCompany = () => {
   const { myCompany } = useCompanies();
@@ -44,9 +44,7 @@ export const MyCompany = () => {
             </Typography>
           </Stack>
           <Stack direction="row" gap="4px">
-            <IconButton>
-              <Delete />
-            </IconButton>
+            <CloseAccountModal />
           </Stack>
         </Stack>
       </Paper>

@@ -12,8 +12,10 @@ import { OfferType, offerSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OfferForm } from "./OfferForm";
 import { createOffer } from "~/api/companyOffer";
+import { useNavigate } from "react-router-dom";
 
 export const OfferCreateModal = () => {
+  const navigate = useNavigate();
   const form = useForm<OfferType>({
     defaultValues: {
       name: "",
@@ -37,6 +39,7 @@ export const OfferCreateModal = () => {
     createOffer(data);
     reset();
     setIsOpen(false);
+    navigate(0);
   };
   const onClose = () => {
     reset();
