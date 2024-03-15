@@ -97,8 +97,6 @@ export const CandidateApplyModal = ({
     applyCandidate(offerId, data);
     setIsOpen(false);
     navigate(0);
-
-    console.log(data);
   };
   const onClose = () => {
     setIsOpen(false), reset();
