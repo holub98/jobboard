@@ -1,9 +1,9 @@
 import { atom } from "jotai";
 
 export type OfferFilterType = {
-  name?: string;
-  requirements?: string;
-  workDirection?: string;
-  localization?: string;
+  name: string;
+  requirements: string[];
+  workDirection: string;
+  localization: string;
 };
-export const filterAtom = atom<OfferFilterType | {}>({});
+export const filterAtom = atom<OfferFilterType>({name: "", requirements:[], workDirection:"", localization:""} );

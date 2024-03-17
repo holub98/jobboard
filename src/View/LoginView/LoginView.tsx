@@ -14,12 +14,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginType, loginSchema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import { login } from "~/api";
-import { useSetAtom } from "jotai";
-import { isLoginAuth } from "~/hooks";
+import { AuthToken } from "~/hooks";
 
 export const LoginView = () => {
   const navigate = useNavigate();
-  const setLogin = useSetAtom(isLoginAuth);
   const [isVisible, setIsVisible] = useState<boolean>(false);
   const {
     register,
@@ -30,12 +28,11 @@ export const LoginView = () => {
   });
 
   const onSubmit = async (data: LoginType) => {
-    login(data);
-
-    setLogin((await login(data)).data);
+    await login(data);
 
     setTimeout(() => {
       navigate("/");
+      AuthToken();
     }, 1000);
   };
 

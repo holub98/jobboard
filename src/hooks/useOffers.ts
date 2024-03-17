@@ -67,7 +67,7 @@ export const useOffers = () => {
           console.error(error);
         }
       },
-      []
+      [filter]
     );
     useEffect(() => {
       fetchOffers();

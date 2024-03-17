@@ -15,7 +15,6 @@ export const MyCompany = () => {
   if (data === undefined) {
     return null;
   }
-  console.log(data);
   return (
     <Stack height="100%" gap="16px">
       <Paper

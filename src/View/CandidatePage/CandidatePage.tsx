@@ -26,7 +26,6 @@ export const CandidatePage = () => {
   if (data === undefined) {
     return null;
   }
-  console.log(data);
   return (
     <Stack height="100%">
       <Stack direction="row" alignItems="center" justifyContent="space-between">

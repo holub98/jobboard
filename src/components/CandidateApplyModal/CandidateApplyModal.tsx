@@ -102,7 +102,6 @@ export const CandidateApplyModal = ({
     setIsOpen(false), reset();
   };
 
-  console.log(errors);
   return (
     <>
       <Button onClick={() => setIsOpen(true)}>Apply</Button>

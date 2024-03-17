@@ -29,10 +29,7 @@ export const OfferCreateModal = () => {
     },
     resolver: zodResolver(offerSchema),
   });
-  const {
-    reset,
-    formState: { errors },
-  } = form;
+  const { reset } = form;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onSubmit = async (data: OfferType) => {
@@ -45,7 +42,6 @@ export const OfferCreateModal = () => {
     reset();
     setIsOpen(false);
   };
-  console.log(errors);
   return (
     <>
       <Button variant="contained" size="large" onClick={() => setIsOpen(true)}>

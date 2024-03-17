@@ -15,7 +15,6 @@ export const CompanySinglePage = () => {
   if (data === undefined) {
     return null;
   }
-  console.log(data.offers);
   return (
     <Stack>
       <Stack direction="row" gap={3} width="100%">
