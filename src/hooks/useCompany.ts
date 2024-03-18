@@ -34,7 +34,7 @@ export type SingleCompanyInfo = {
     email: string;
     name: string;
     localization: Localization;
-    description?: string;
+    description: string;
   };
   offers: Offer[];
   actualOffers: number;

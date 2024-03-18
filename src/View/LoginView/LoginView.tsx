@@ -30,10 +30,8 @@ export const LoginView = () => {
   const onSubmit = async (data: LoginType) => {
     await login(data);
 
-    setTimeout(() => {
-      navigate("/");
-      AuthToken();
-    }, 1000);
+    navigate("/");
+    AuthToken();
   };
 
   return (

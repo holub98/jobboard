@@ -29,11 +29,9 @@ export const RegisterView = () => {
   const { handleSubmit } = form;
   const onSubmit = async (data: CompanyType) => {
     await registerCompany(data);
-    setTimeout(() => {
-      navigate("/");
-      AuthToken();
-      navigate(0);
-    }, 2000);
+
+    navigate("/");
+    AuthToken();
   };
   return (
     <Stack justifyContent="center" alignItems="center" height="100%">

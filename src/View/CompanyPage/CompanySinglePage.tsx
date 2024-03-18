@@ -66,7 +66,7 @@ export const CompanySinglePage = () => {
           gap: "8px",
         }}
       >
-        {/* <div dangerouslySetInnerHTML={{__html: }}/> */}
+        <div dangerouslySetInnerHTML={{ __html: data.company.description }} />
       </Paper>
       <Typography>Actual offers: {data.actualOffers}</Typography>
       {data.offers.map((it, index) => {

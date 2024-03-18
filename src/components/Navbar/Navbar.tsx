@@ -36,12 +36,8 @@ export const Navbar = () => {
   const onLogout = async () => {
     await logout();
 
-    setTimeout(() => {
-      navigate("/");
-      AuthToken();
-
-      navigate(0);
-    }, 1000);
+    navigate("/");
+    AuthToken();
   };
   return (
     <Stack
