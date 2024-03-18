@@ -31,3 +31,5 @@ export const getSingleCompany = (companyId: string) =>
 export const updateCompany = (data: CompanyFullType) => {
   api.put("/company/update-me", data);
 };
+
+export const deleteAccount = () => api.delete("/company/delete-account");

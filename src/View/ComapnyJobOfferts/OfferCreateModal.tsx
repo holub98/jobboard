@@ -12,8 +12,10 @@ import { OfferType, offerSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OfferForm } from "./OfferForm";
 import { createOffer } from "~/api/companyOffer";
+import { useNavigate } from "react-router-dom";
 
 export const OfferCreateModal = () => {
+  const navigate = useNavigate();
   const form = useForm<OfferType>({
     defaultValues: {
       name: "",
@@ -27,22 +29,19 @@ export const OfferCreateModal = () => {
     },
     resolver: zodResolver(offerSchema),
   });
-  const {
-    reset,
-    formState: { errors },
-  } = form;
+  const { reset } = form;
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onSubmit = async (data: OfferType) => {
     createOffer(data);
     reset();
     setIsOpen(false);
+    navigate(0);
   };
   const onClose = () => {
     reset();
     setIsOpen(false);
   };
-  console.log(errors);
   return (
     <>
       <Button variant="contained" size="large" onClick={() => setIsOpen(true)}>

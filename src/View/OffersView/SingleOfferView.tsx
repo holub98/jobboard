@@ -15,7 +15,6 @@ export const SingleOfferView = () => {
   if (data === undefined) {
     return null;
   }
-  console.log(data);
 
   return (
     <Stack height="100%">

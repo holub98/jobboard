@@ -10,15 +10,11 @@ export const OffersSection = () => {
   if (allOffers === undefined) {
     return null;
   }
-  const filter = useAtomValue(filterAtom);
+const filter = useAtomValue(filterAtom);
   const offers = allOffers();
   if (offers === undefined) {
     return null;
   }
-  console.log(
-    offers.map((it) => it.offer._id),
-    filter
-  );
   return (
     <Stack gap="8px" marginTop="24px">
       {offers.map((it, index) => {

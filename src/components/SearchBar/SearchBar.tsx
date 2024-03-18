@@ -12,82 +12,50 @@ import { Controller, useForm } from "react-hook-form";
 import { FilterType, filterSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { tech } from "~/state/technologies";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import { useState } from "react";
-import { useSetAtom } from "jotai";
+import { useNavigate } from "react-router-dom";
+import { atom, useAtom } from "jotai";
 import { filterAtom } from "~/state/filterSearch";
-
-type OfferFilterType = {
-  name?: string;
-  requirements?: string;
-  workDirection?: string;
-  localization?: string;
-};
 
 type Props = {
   direction: "row" | "column";
-  toClear: boolean;
 };
 
-export const SearchBar = ({ direction, toClear }: Props) => {
-  const [searchParams] = useSearchParams();
+const toggleAtom = atom<boolean>(false);
 
+export const SearchBar = ({ direction }: Props) => {
   const navigate = useNavigate();
 
-  const [check, setCheck] = useState<boolean>(false);
+  const [check, setCheck] = useAtom(toggleAtom);
 
-  const setFilter = useSetAtom(filterAtom);
-
-  let body: OfferFilterType = {};
+  const [filter, setFilter] = useAtom(filterAtom);
 
   const { control, register, handleSubmit, setValue, reset } =
     useForm<FilterType>({
-      defaultValues: {},
+      defaultValues: filter,
       resolver: zodResolver(filterSchema),
     });
-
-  const onSubmit = async (data: FilterType) => {
-    if (data.requirements) {
-      body.requirements = data.requirements.join("_");
-      searchParams.set("technologies", body.requirements);
-    }
-    if (data.localization) {
-      body.localization = data.localization;
-      searchParams.set("localization", body.localization);
-    }
-    if (data.name) {
-      body.name = data.name;
-      searchParams.set("offer", body.name);
-    }
-    if (data.workDirection) {
-      body.workDirection = data.workDirection;
-      searchParams.set("workDirection", "remote");
-    }
-
-    if (Object.keys(body).length === 0) {
-      navigate("/offers");
-    } else {
-      navigate(`/offers/?${searchParams}`);
-    }
-
-    setFilter(body);
-  };
-
-  const checkToggle = (check: boolean) => {
+  const checkToggle = () => {
+    setCheck((prev) => !prev);
     if (check) {
-      setCheck(false), setValue("workDirection", undefined);
+      setValue("workDirection", "");
     } else {
-      setCheck(true);
-      setValue("workDirection", "remote");
-      reset();
+      setValue("workDirection", "Remote");
     }
+  };
+  const onSubmit = async (data: FilterType) => {
+    setFilter(data);
+    navigate("/offers");
   };
 
   const onClear = () => {
-    setFilter({});
+    setCheck(false);
     reset();
-    navigate("/offers");
-    navigate(0);
+    setFilter({
+      name: "",
+      requirements: [],
+      workDirection: "",
+      localization: "",
+    });
   };
   return (
     <Box
@@ -148,7 +116,7 @@ export const SearchBar = ({ direction, toClear }: Props) => {
                 <ToggleButton
                   value="remote"
                   selected={check}
-                  onChange={() => checkToggle(check)}
+                  onChange={() => checkToggle()}
                   sx={{
                     height: "56px",
                   }}
@@ -161,11 +129,9 @@ export const SearchBar = ({ direction, toClear }: Props) => {
 
           <TextField label="Localization" {...register("localization")} />
         </Stack>
-        {toClear && (
-          <Button onClick={onClear} sx={{ height: "56px" }}>
-            Clear
-          </Button>
-        )}
+        <Button onClick={onClear} sx={{ height: "56px" }}>
+          Clear
+        </Button>
         <Button sx={{ height: "56px" }} type="submit">
           Search
         </Button>

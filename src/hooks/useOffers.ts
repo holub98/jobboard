@@ -1,5 +1,5 @@
 import { useAtomValue } from "jotai";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getAllOffers, getRecomeneded, getSingleOffer } from "~/api";
 import { filterAtom } from "~/state/filterSearch";
 
@@ -38,27 +38,62 @@ type JobOffers = {
 export const useOffers = () => {
   const recomendedOffers = () => {
     const [data, setData] = useState<Offers[]>();
+    const fetchOffers = useMemo(
+      () => async () => {
+        try {
+          const response = await getRecomeneded();
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getRecomeneded().then((res) => setData(res.data));
-    }, []);
+      fetchOffers();
+    }, [fetchOffers]);
 
     return data;
   };
   const allOffers = () => {
     const [data, setData] = useState<JobOffers[]>();
     const filter = useAtomValue(filterAtom);
-
+    const fetchOffers = useMemo(
+      () => async () => {
+        try {
+          const response = await getAllOffers(filter);
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      [filter]
+    );
     useEffect(() => {
-      getAllOffers(filter).then((res) => setData(res.data));
-    }, []);
+      fetchOffers();
+    }, [fetchOffers, filter]);
+
     console.log("effect", data, filter);
     return data;
   };
   const singleOffer = (id: string) => {
     const [data, setData] = useState<JobOffers>();
+
+    const fetchOffer = useMemo(
+      () => async () => {
+        try {
+          const response = await getSingleOffer(id);
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getSingleOffer(id).then((res) => setData(res.data));
-    }, []);
+      fetchOffer();
+    }, [fetchOffer]);
+
     return data;
   };
 

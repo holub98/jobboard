@@ -5,11 +5,10 @@ import { CompanyType, companySchema } from "../schema";
 import { registerCompany } from "../../../api/company";
 import { breakTheme } from "../../../theme";
 import { useNavigate } from "react-router-dom";
-import { useSetAtom } from "jotai";
-import { isLoginAuth } from "~/hooks";
 import { InfoForm } from "../Form/InfoForm";
 import { LocalizationForm } from "../Form/LocalizationForm";
 import { DescriptionForm } from "../Form/DescriptionForm";
+import { AuthToken } from "~/hooks";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -23,18 +22,16 @@ const StackDiv = styled("div")(({ theme }) => ({
 
 export const RegisterView = () => {
   const navigate = useNavigate();
-  const isAuth = useSetAtom(isLoginAuth);
   const form = useForm<CompanyType>({
     resolver: zodResolver(companySchema),
   });
 
   const { handleSubmit } = form;
   const onSubmit = async (data: CompanyType) => {
-    registerCompany(data);
-    isAuth((await registerCompany(data)).data);
-    setTimeout(() => {
-      navigate("/");
-    }, 1000);
+    await registerCompany(data);
+
+    navigate("/");
+    AuthToken();
   };
   return (
     <Stack justifyContent="center" alignItems="center" height="100%">

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { getOfferCadidates, getSingleCandidate } from "~/api";
 
 export type ExperienceType = {
@@ -69,16 +69,39 @@ export type CandidateFullInfoType = {
 export const useCandidate = () => {
   const myCandidates = (offerId: string) => {
     const [data, setData] = useState<CandidateType[]>();
+    const fetchCandidates = useMemo(
+      () => async () => {
+        try {
+          const response = await getOfferCadidates(offerId);
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getOfferCadidates(offerId).then((res) => setData(res.data));
-    }, []);
+      fetchCandidates();
+    }, [fetchCandidates]);
     return data;
   };
   const singleCandidate = (offerId: string, candidateId: string) => {
     const [data, setData] = useState<CandidateFullInfoType>();
+    const fetchCandidate = useMemo(
+      () => async () => {
+        try {
+          const response = await getSingleCandidate(offerId, candidateId);
+          setData(response.data);
+        } catch (error) {
+          console.error(error);
+        }
+      },
+      []
+    );
     useEffect(() => {
-      getSingleCandidate(offerId, candidateId).then((res) => setData(res.data));
-    }, []);
+      fetchCandidate();
+    }, [fetchCandidate]);
+
     return data;
   };
 
