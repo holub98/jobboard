@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import { api } from ".";
 export type ExperienceType = {
   companyName: string;
@@ -35,5 +36,11 @@ export const getOfferCadidates = (offerId: string) =>
 export const getSingleCandidate = (offerId: string, candidateId: string) =>
   api.get(`/candidates/${offerId}/${candidateId}`);
 
-export const applyCandidate = (offerId: string, data: CandidateType) =>
-  api.post(`/candidates/${offerId}/send`, data);
+export const applyCandidate = (offerId: string, data: CandidateType) => {
+  try {
+    api.post(`/candidates/${offerId}/send`, data);
+    enqueueSnackbar({ variant: "success", message: "Application sent" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
+};

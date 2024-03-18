@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
 import { getOfferCadidates, getSingleCandidate } from "~/api";
 
@@ -75,7 +76,7 @@ export const useCandidate = () => {
           const response = await getOfferCadidates(offerId);
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []
@@ -93,7 +94,7 @@ export const useCandidate = () => {
           const response = await getSingleCandidate(offerId, candidateId);
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []

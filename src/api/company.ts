@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import { api } from "./api";
 
 type LocalizationType = {
@@ -17,8 +18,12 @@ export type CompanyFullType = {
 };
 
 export const registerCompany = async (data: CompanyFullType) => {
-  const response = await api.post("/company/register", data);
-  return response;
+  try {
+    await api.post("/company/register", data);
+    enqueueSnackbar({ variant: "success", message: "Register success" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
 };
 
 export const getMyCompany = () => api.get("/company/my-company");
@@ -29,7 +34,19 @@ export const getSingleCompany = (companyId: string) =>
   api.get(`/company/${companyId}`);
 
 export const updateCompany = (data: CompanyFullType) => {
-  api.put("/company/update-me", data);
+  try {
+    api.put("/company/update-me", data);
+    enqueueSnackbar({ variant: "success", message: "Account updated" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
 };
 
-export const deleteAccount = () => api.delete("/company/delete-account");
+export const deleteAccount = () => {
+  try {
+    api.delete("/company/delete-account");
+    enqueueSnackbar({ variant: "success", message: "Account deleted" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
+};
