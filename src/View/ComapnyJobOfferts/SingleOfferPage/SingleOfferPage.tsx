@@ -23,6 +23,7 @@ export const SingleOfferPage = () => {
   if (offer === undefined || candidates === undefined) {
     return null;
   }
+  console.log(offer);
   return (
     <Stack height="100%">
       <Stack direction="row" alignItems="center" justifyContent="space-between">

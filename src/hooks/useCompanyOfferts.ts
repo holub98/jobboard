@@ -1,5 +1,6 @@
+import { enqueueSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
-import { getMyOfferCount, getMyOffers, getSingleOffer } from "~/api";
+import { getMyOfferCount, getMyOffers, getMySingleOffer } from "~/api";
 
 type CompanyCount = {
   name: string;
@@ -30,7 +31,7 @@ export const useCompanyOffers = () => {
           const response = await getMyOfferCount();
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []
@@ -50,7 +51,7 @@ export const useCompanyOffers = () => {
           const response = await getMyOffers();
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []
@@ -60,7 +61,6 @@ export const useCompanyOffers = () => {
     }, [fetchMyOffers]);
 
     if (data === undefined) return [];
-    console.log(data);
     return data;
   };
 
@@ -70,10 +70,10 @@ export const useCompanyOffers = () => {
     const fetchMyOffers = useMemo(
       () => async () => {
         try {
-          const response = await getSingleOffer(singleId);
+          const response = await getMySingleOffer(singleId);
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []

@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import { api } from ".";
 
 type Direction = "Remote" | "PartlyRemote" | "Office";
@@ -13,20 +14,39 @@ export type JobOfferType = {
   description: string;
 };
 
-export const createOffer = (data: JobOfferType) =>
-  api.post("/job-offer/create", data);
+export const createOffer = (data: JobOfferType) => {
+  try {
+    api.post("/job-offer/create", data);
+
+    enqueueSnackbar({ variant: "success", message: "Offer created" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
+};
 
 export const updateOffer = (data: JobOfferType, offerId: string) => {
-  api
-    .put(`job-offer/${offerId}`, data)
+  try {
+    api.put(`job-offer/${offerId}`, data);
+
+    enqueueSnackbar({ variant: "success", message: "Offer updated" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
 };
 
 export const deleteOffer = (offerId: string) => {
-  api.delete(`job-offer/${offerId}`)
+  try {
+    api.delete(`job-offer/${offerId}`);
+
+    enqueueSnackbar({ variant: "success", message: "Offer deleted" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
 };
 
-export const getMyOffers = () => api.get("/job-offer/my-offer");
+export const getMyOffers = async () => await api.get("/job-offer/my-offer");
 
 export const getMyOfferCount = () => api.get("/job-offer/my-offer-count");
 
-export const getMySingleOffer = (offerId: string)=> api.get(`/job-offer/me/${offerId}`);
+export const getMySingleOffer = (offerId: string) =>
+  api.get(`/job-offer/me/${offerId}`);

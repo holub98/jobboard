@@ -1,4 +1,5 @@
 import { useAtomValue } from "jotai";
+import { enqueueSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
 import { getAllOffers, getRecomeneded, getSingleOffer } from "~/api";
 import { filterAtom } from "~/state/filterSearch";
@@ -44,7 +45,7 @@ export const useOffers = () => {
           const response = await getRecomeneded();
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []
@@ -64,7 +65,7 @@ export const useOffers = () => {
           const response = await getAllOffers(filter);
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       [filter]
@@ -73,7 +74,6 @@ export const useOffers = () => {
       fetchOffers();
     }, [fetchOffers, filter]);
 
-    console.log("effect", data, filter);
     return data;
   };
   const singleOffer = (id: string) => {
@@ -85,7 +85,7 @@ export const useOffers = () => {
           const response = await getSingleOffer(id);
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []

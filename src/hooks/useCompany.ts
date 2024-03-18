@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
 import { getAllCompanies, getMyCompany, getSingleCompany } from "~/api";
 
@@ -66,7 +67,7 @@ export const useCompanies = () => {
           const response = await getAllCompanies();
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []
@@ -86,7 +87,7 @@ export const useCompanies = () => {
           const response = await getSingleCompany(companyId);
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []
@@ -105,7 +106,7 @@ export const useCompanies = () => {
           const response = await getMyCompany();
           setData(response.data);
         } catch (error) {
-          console.error(error);
+          enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
       []

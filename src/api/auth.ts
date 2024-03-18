@@ -1,3 +1,4 @@
+import { enqueueSnackbar } from "notistack";
 import { api } from "./api";
 
 type LoginType = {
@@ -6,12 +7,21 @@ type LoginType = {
 };
 
 export const login = async (data: LoginType) => {
-  const response = await api.post("/auth/login", data);
-  return response;
+  try {
+    await api.post("/auth/login", data);
+    enqueueSnackbar({ variant: "success", message: "Login success" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
 };
 
 export const logout = () => {
-  api.post("/auth/logout");
+  try {
+    api.post("/auth/logout");
+    enqueueSnackbar({ variant: "success", message: "Logout success" });
+  } catch (err) {
+    enqueueSnackbar({ variant: "error", message: `${err}` });
+  }
 };
 
 export const validate = () => {
