@@ -34,7 +34,7 @@ export const useCompanyOffers = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchMyOffers();
@@ -54,7 +54,7 @@ export const useCompanyOffers = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchMyOffers();
@@ -76,7 +76,7 @@ export const useCompanyOffers = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchMyOffers();

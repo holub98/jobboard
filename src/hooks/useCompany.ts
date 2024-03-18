@@ -70,7 +70,7 @@ export const useCompanies = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchCompanies();
@@ -90,7 +90,7 @@ export const useCompanies = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchCompany();
@@ -109,7 +109,7 @@ export const useCompanies = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchMyCompany();

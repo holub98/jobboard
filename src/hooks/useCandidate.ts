@@ -79,7 +79,7 @@ export const useCandidate = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchCandidates();
@@ -97,7 +97,7 @@ export const useCandidate = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchCandidate();

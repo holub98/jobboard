@@ -14,13 +14,11 @@ import {
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { InfoForm } from "./Form/InfoForm";
-import { useNavigate } from "react-router-dom";
 type Props = {
   initialData: CompanyFullType;
 };
 
 export const InfoUpdateModal = ({ initialData }: Props) => {
-  const navigate = useNavigate();
   const form = useForm<CompanyType>({
     defaultValues: initialData,
     resolver: zodResolver(companySchema),
@@ -29,7 +27,6 @@ export const InfoUpdateModal = ({ initialData }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onSubmit = (data: CompanyType) => {
-    navigate(0);
     updateCompany(data);
     setIsOpen(false);
     reset();

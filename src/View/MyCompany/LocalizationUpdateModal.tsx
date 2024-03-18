@@ -14,13 +14,11 @@ import {
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { LocalizationForm } from "./Form/LocalizationForm";
-import { useNavigate } from "react-router-dom";
 type Props = {
   initialData: CompanyFullType;
 };
 
 export const LocalizationUpdateModal = ({ initialData }: Props) => {
-  const navigate = useNavigate();
   const form = useForm<CompanyType>({
     defaultValues: initialData,
     resolver: zodResolver(companySchema),
@@ -30,7 +28,6 @@ export const LocalizationUpdateModal = ({ initialData }: Props) => {
 
   const onSubmit = (data: CompanyType) => {
     updateCompany(data);
-    navigate(0);
     setIsOpen(false);
     reset();
   };

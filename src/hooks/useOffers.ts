@@ -88,7 +88,7 @@ export const useOffers = () => {
           enqueueSnackbar({ variant: "error", message: `${error}` });
         }
       },
-      []
+      [data]
     );
     useEffect(() => {
       fetchOffer();
