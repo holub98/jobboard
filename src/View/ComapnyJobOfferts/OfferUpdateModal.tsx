@@ -13,7 +13,6 @@ import { OfferType, offerSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { OfferForm } from "./OfferForm";
 import { updateOffer } from "~/api/companyOffer";
-import { useNavigate } from "react-router-dom";
 
 type Props = {
   initialData: OfferType;
@@ -21,7 +20,6 @@ type Props = {
 };
 
 export const OfferUpdateModal = ({ initialData, offerId }: Props) => {
-  const navigate = useNavigate();
   const form = useForm<OfferType>({
     defaultValues: initialData,
     resolver: zodResolver(offerSchema),
@@ -33,7 +31,6 @@ export const OfferUpdateModal = ({ initialData, offerId }: Props) => {
     updateOffer(data, offerId);
     setIsOpen(false);
     reset();
-    navigate(0);
   };
   const onClose = () => {
     setIsOpen(false);
