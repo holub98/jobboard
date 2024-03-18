@@ -16,7 +16,10 @@ export const CompanyJobOfferts = () => {
 
   const data = companyOfferInfo();
   const offers = myOffers();
-  console.log(offers);
+
+  if (offers === undefined) {
+    return null;
+  }
   return (
     <Stack>
       <Stack
@@ -85,8 +88,8 @@ export const CompanyJobOfferts = () => {
                   <IconButton href={`/my-offers/${it._id}`}>
                     <AssignmentOutlined />
                   </IconButton>
-                  <OfferUpdateModal initialData={it} />
-                  <OfferDeleteModal initialData={it} />
+                  <OfferUpdateModal initialData={it} offerId={it._id} />
+                  <OfferDeleteModal initialData={it} offerId={it._id} />
                 </Stack>
               </Stack>
             </Stack>

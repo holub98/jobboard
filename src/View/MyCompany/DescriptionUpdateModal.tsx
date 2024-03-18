@@ -14,11 +14,13 @@ import {
 } from "@mui/material";
 import { Edit } from "@mui/icons-material";
 import { DescriptionForm } from "./Form/DescriptionForm";
+import { useNavigate } from "react-router-dom";
 type Props = {
   initialData: CompanyFullType;
 };
 
 export const DescriptionUpdateModal = ({ initialData }: Props) => {
+  const navigate = useNavigate();
   const form = useForm<CompanyType>({
     defaultValues: initialData,
     resolver: zodResolver(companySchema),
@@ -30,6 +32,7 @@ export const DescriptionUpdateModal = ({ initialData }: Props) => {
     updateCompany(data);
     setIsOpen(false);
     reset();
+    navigate(0);
   };
   const onClose = () => {
     setIsOpen(false);

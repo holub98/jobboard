@@ -14,7 +14,7 @@ export const OffersView = () => {
   }
   return (
     <>
-      <SearchBar direction="row" toClear={true} />
+      <SearchBar direction="row" />
       <OffersSection />
     </>
   );

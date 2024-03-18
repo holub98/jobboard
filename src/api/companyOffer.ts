@@ -19,14 +19,14 @@ export const createOffer = (data: JobOfferType) =>
 export const updateOffer = (data: JobOfferType, offerId: string) => {
   api
     .put(`job-offer/${offerId}`, data)
-    .then((res) => console.log(res.data))
-    .catch((error) => console.error(error));
 };
 
 export const deleteOffer = (offerId: string) => {
-  api.delete(`job-offer/${offerId}`).catch((error) => console.error(error));
+  api.delete(`job-offer/${offerId}`)
 };
 
 export const getMyOffers = () => api.get("/job-offer/my-offer");
 
 export const getMyOfferCount = () => api.get("/job-offer/my-offer-count");
+
+export const getMySingleOffer = (offerId: string)=> api.get(`/job-offer/me/${offerId}`);
