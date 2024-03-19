@@ -1,5 +1,4 @@
-import { Business, Home, HomeWork } from "@mui/icons-material";
-import { Stack, Typography } from "@mui/material";
+import { Paper, Stack, Typography } from "@mui/material";
 import { OfferType } from "../schema";
 
 type Props = {
@@ -8,70 +7,66 @@ type Props = {
 
 export const OfferSection = ({ offer }: Props) => {
   return (
-    <Stack height="100%">
-      <Stack
-        direction="row"
-        justifyContent="space-between"
+    <Stack height="100%" width="100%" gap="16px">
+      <Paper
+        elevation={3}
         sx={{
-          padding: "16px",
-          marginBottom: "32px",
-          backgroundColor: "primary.light",
-          border: "2px solid",
-          borderRadius: "20px",
-          color: "primary.contrastText",
+          padding: "8px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
         }}
       >
-        {offer.workDirection === "Office" && (
-          <Stack direction="row" alignItems="center" gap="2px">
-            <Business />
-            <Typography variant="h6">Office</Typography>
-          </Stack>
-        )}
-        {offer.workDirection === "PartlyRemote" && (
-          <Stack direction="row" alignItems="center" gap="2px">
-            <HomeWork />
-            <Typography variant="h6"> Hybrid</Typography>
-          </Stack>
-        )}
-        {offer.workDirection === "Remote" && (
-          <Stack direction="row" alignItems="center" gap="2px">
-            <Home />
-            <Typography variant="h6">Remote</Typography>
-          </Stack>
-        )}
-        <Typography variant="h6">
-          Earnings: {offer.earnings.from} - {offer.earnings.to} PLN
-        </Typography>
-      </Stack>
-      <Stack
-        direction="column"
-        gap="16px"
-        sx={{
-          padding: "16px",
-          marginBottom: "32px",
-          backgroundColor: "primary.light",
-          border: "2px solid",
-          borderRadius: "20px",
-          color: "primary.contrastText",
-        }}
-      >
-        <Typography variant="h6">Requirement stack:</Typography>
         <Stack
           direction="row"
-          gap="16px"
-          flexWrap="wrap"
+          alignItems="center"
           justifyContent="space-between"
         >
-          {offer.requirements.map((it) => {
-            return (
-              <Typography key={it} variant="body1">
-                {it}
-              </Typography>
-            );
-          })}
+          <Typography variant="h6">{offer.workDirection}</Typography>
+
+          <Typography variant="h6">
+            {offer.earnings.from} - {offer.earnings.to} PLN
+          </Typography>
         </Stack>
-      </Stack>
-      <div dangerouslySetInnerHTML={{ __html: offer.description }} />
+      </Paper>
+      <Paper
+        elevation={3}
+        sx={{
+          padding: "8px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+        }}
+      >
+        <Stack
+          direction="column"
+          alignItems="flex-start"
+          justifyContent="space-between"
+        >
+          <Typography variant="h6">Requirement stack:</Typography>
+          <Stack direction="row" gap="16px" flexWrap="wrap">
+            {offer.requirements.map((it) => {
+              return (
+                <Typography key={it} variant="body1">
+                  {it}
+                </Typography>
+              );
+            })}
+          </Stack>
+        </Stack>
+      </Paper>
+      <Paper
+        elevation={3}
+        sx={{
+          padding: "8px 16px",
+          display: "flex",
+          flexDirection: "column",
+          gap: "8px",
+          flexGrow: 1,
+        }}
+      >
+        <div dangerouslySetInnerHTML={{ __html: offer.description }} />
+      </Paper>
     </Stack>
   );
 };

@@ -47,12 +47,13 @@ export const LocalizationUpdateModal = ({ initialData }: Props) => {
             component="form"
             id="info-form"
             onSubmit={handleSubmit(onSubmit)}
+            sx={{ padding: "16px" }}
           >
             <LocalizationForm formContext={form} />
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" size="large" onClick={onClose}>
+          <Button color="inherit" onClick={onClose}>
             Cancel
           </Button>
           <Button type="submit" form="info-form">

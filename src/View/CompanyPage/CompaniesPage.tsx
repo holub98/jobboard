@@ -13,7 +13,7 @@ export const CompaniesPage = () => {
     return null;
   }
   return (
-    <Stack>
+    <Stack gap="8px">
       {data.map((it, index) => {
         return (
           <Paper
@@ -26,11 +26,15 @@ export const CompaniesPage = () => {
               gap: "8px",
             }}
           >
-            <Stack direction="column" gap={3}>
+            <Stack direction="column" gap={2}>
               <Stack
-                direction="row"
-                justifyContent="space-between"
-                alignItems="center"
+                sx={(theme) => ({
+                  [theme.breakpoints.up("sm")]: {
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                  },
+                  flexDirection: "column",
+                })}
               >
                 <Typography variant="h6">
                   <Link
@@ -40,11 +44,10 @@ export const CompaniesPage = () => {
                     {it.company.name}
                   </Link>
                 </Typography>
-                <Typography variant="h6">
+                <Typography variant="subtitle1" fontWeight="bold">
                   Actual offers: {it.actualOffers}
                 </Typography>
               </Stack>
-              {/* <div dangerouslySetInnerHTML={{__html: it.company.description}}/> */}
               <Box
                 sx={{
                   display: "flex",

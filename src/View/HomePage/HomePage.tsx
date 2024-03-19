@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 
 import { useOffers } from "~/hooks";
-import { SearchBar } from "~/components";
+import { SearchBar, ZeroCountOffer } from "~/components";
 
 export const HomePage = () => {
   const { recomendedOffers } = useOffers();
@@ -22,8 +22,8 @@ export const HomePage = () => {
   }
   return (
     <>
-      <SearchBar direction="row" />
-      {recomended && (
+      <SearchBar />
+      {recomended ? (
         <Box
           sx={{
             display: "flex",
@@ -37,7 +37,15 @@ export const HomePage = () => {
             Recomended offers:
           </Typography>
 
-          <Stack direction="row" gap="64px">
+          <Stack
+            sx={(theme) => ({
+              [theme.breakpoints.up("md")]: {
+                flexDirection: "row",
+              },
+              flexDirection: "column",
+              gap: "32px",
+            })}
+          >
             {recomended.map((it) => {
               return (
                 <Card key={it._id} sx={{ width: "100%" }}>
@@ -47,11 +55,17 @@ export const HomePage = () => {
                   />
                   <CardContent sx={{ gap: "4px" }}>
                     <Typography variant="h6">Tech stack:</Typography>
-                    {it.requirements.slice(0, 3).map((it) => {
-                      return (
-                        <Chip key={it} label={it} sx={{ marginRight: "4px" }} />
-                      );
-                    })}
+                    <Stack gap="4px" flexWrap={"wrap"} direction={"row"}>
+                      {it.requirements.slice(0, 3).map((it) => {
+                        return (
+                          <Chip
+                            key={it}
+                            label={it}
+                            sx={{ marginRight: "4px" }}
+                          />
+                        );
+                      })}
+                    </Stack>
                   </CardContent>
 
                   <CardActions>
@@ -62,6 +76,8 @@ export const HomePage = () => {
             })}
           </Stack>
         </Box>
+      ) : (
+        <ZeroCountOffer />
       )}
     </>
   );

@@ -3,19 +3,18 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { CompanyType, companySchema } from "../schema";
 import { registerCompany } from "../../../api/company";
-import { breakTheme } from "../../../theme";
-import { useNavigate } from "react-router-dom";
 import { InfoForm } from "../Form/InfoForm";
 import { LocalizationForm } from "../Form/LocalizationForm";
 import { DescriptionForm } from "../Form/DescriptionForm";
-import { AuthToken } from "~/utils/auth";
+import { AuthToken } from "~/utils/useAuth";
+import { useNavigate } from "react-router-dom";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   gap: 16,
   alignItems: "center",
-  [theme.breakpoints.down(breakTheme.breakpoints.values.md)]: {
+  [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
 }));
@@ -29,8 +28,8 @@ export const RegisterView = () => {
   const { handleSubmit } = form;
   const onSubmit = async (data: CompanyType) => {
     await registerCompany(data);
-
     navigate("/");
+
     AuthToken();
   };
   return (
@@ -59,18 +58,13 @@ export const RegisterView = () => {
 
           <Typography variant="h6">About your company</Typography>
           <DescriptionForm formContext={form} />
-          <Button
-            size="large"
-            variant="contained"
-            color="success"
-            type="submit"
-          >
+          <Button size="large" color="success" type="submit">
             Sign up
           </Button>
         </Stack>
         <StackDiv>
           <Typography>Do you have already an account?</Typography>
-          <Button size="medium" variant="text" href="/login">
+          <Button variant="text" href="/login">
             Log in
           </Button>
         </StackDiv>

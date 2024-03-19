@@ -52,7 +52,7 @@ export const DescriptionUpdateModal = ({ initialData }: Props) => {
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" size="large" onClick={onClose}>
+          <Button color="inherit" onClick={onClose}>
             Cancel
           </Button>
           <Button type="submit" form="description-form">

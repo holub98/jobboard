@@ -15,7 +15,6 @@ import { Controller, useForm } from "react-hook-form";
 import { ApplyType, applySchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { applyCandidate } from "~/api";
-import { breakTheme } from "~/theme";
 import {
   MenuButtonBlockquote,
   MenuButtonBold,
@@ -46,12 +45,12 @@ type Props = {
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
-  flexDirection: "row",
-  gap: 16,
+  gap: "16px",
   alignItems: "center",
-  [theme.breakpoints.down(breakTheme.breakpoints.values.md)]: {
-    flexDirection: "column",
+  [theme.breakpoints.up("md")]: {
+    flexDirection: "row",
   },
+  flexDirection: "column",
 }));
 
 export const CandidateApplyModal = ({
@@ -206,7 +205,9 @@ export const CandidateApplyModal = ({
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button onClick={onClose}>Cancel</Button>
+          <Button color="inherit" onClick={onClose}>
+            Cancel
+          </Button>
           <Button type="submit" form="apply-form">
             Apply
           </Button>

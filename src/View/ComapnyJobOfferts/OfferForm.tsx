@@ -108,7 +108,15 @@ export const OfferForm = ({ formContext, initialValue, onSubmit }: Props) => {
         error={!!errors.name}
         helperText={errors.name?.message}
       />
-      <Stack direction="row" gap={1}>
+      <Stack
+        sx={(theme) => ({
+          [theme.breakpoints.up("md")]: {
+            flexDirection: "row",
+          },
+          flexDirection: "column",
+          gap: "4px",
+        })}
+      >
         <TextField
           label="Earnings from"
           name={earnFrom.field.name}

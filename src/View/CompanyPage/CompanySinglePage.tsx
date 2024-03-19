@@ -1,4 +1,4 @@
-import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
+import { Chip, Paper, Stack, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
 import { useCompanies } from "~/hooks";
 
@@ -16,17 +16,27 @@ export const CompanySinglePage = () => {
     return null;
   }
   return (
-    <Stack>
-      <Stack direction="row" gap={3} width="100%">
+    <Stack gap="16px">
+      <Stack
+        sx={(theme) => ({
+          [theme.breakpoints.up("sm")]: {
+            flexDirection: "row",
+          },
+          gap: "16px",
+          flexDirection: "column",
+        })}
+      >
         <Paper
           elevation={3}
-          sx={{
+          sx={(theme) => ({
+            [theme.breakpoints.up("sm")]: {
+              width: "100%",
+            },
             padding: "8px 16px",
             display: "flex",
             flexDirection: "column",
             gap: "8px",
-            width: "100%",
-          }}
+          })}
         >
           <Stack>
             <Typography>{data.company.name}</Typography>
@@ -35,13 +45,15 @@ export const CompanySinglePage = () => {
         </Paper>
         <Paper
           elevation={3}
-          sx={{
+          sx={(theme) => ({
+            [theme.breakpoints.up("sm")]: {
+              width: "100%",
+            },
             padding: "8px 16px",
             display: "flex",
             flexDirection: "column",
             gap: "8px",
-            width: "100%",
-          }}
+          })}
         >
           <Stack>
             <Typography>Address:</Typography>
@@ -68,52 +80,59 @@ export const CompanySinglePage = () => {
       >
         <div dangerouslySetInnerHTML={{ __html: data.company.description }} />
       </Paper>
-      <Typography>Actual offers: {data.actualOffers}</Typography>
-      {data.offers.map((it, index) => {
-        return (
-          <Paper
-            elevation={3}
-            key={index}
-            sx={{
-              padding: "8px 16px",
-              display: "flex",
-              flexDirection: "column",
-              gap: "8px",
-            }}
-          >
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
+      <Stack gap="8px" marginTop="8px">
+        <Typography>Actual offers: {data.actualOffers}</Typography>
+        {data.offers.map((it, index) => {
+          return (
+            <Paper
+              elevation={3}
+              key={index}
+              sx={{
+                padding: "8px 16px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "8px",
+              }}
             >
-              <Typography variant="h6">
-                <Link
-                  to={`/offer/${it._id}`}
-                  style={{ textDecoration: "none", color: "black" }}
-                >
-                  {it.name}
-                </Link>
-              </Typography>
-              <Typography variant="body1">
-                {it.earnings.from} - {it.earnings.to} PLN
-              </Typography>
-            </Stack>
-
-            <Stack
-              direction="row"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <Typography variant="body2">{it.workDirection}</Typography>
-              <Box sx={{ display: "flex", gap: "4px" }}>
-                {it.requirements.slice(0, 3).map((it) => {
-                  return <Chip key={it} label={it} />;
+              <Stack
+                sx={(theme) => ({
+                  [theme.breakpoints.up("sm")]: {
+                    flexDirection: "row",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  },
+                  flexDirection: "column",
                 })}
-              </Box>
-            </Stack>
-          </Paper>
-        );
-      })}
+              >
+                <Typography variant="h6">
+                  <Link
+                    to={`/offer/${it._id}`}
+                    style={{ textDecoration: "none", color: "black" }}
+                  >
+                    {it.name}
+                  </Link>
+                </Typography>
+                <Typography variant="body1">
+                  {it.earnings.from} - {it.earnings.to} PLN
+                </Typography>
+              </Stack>
+
+              <Stack
+                direction="row"
+                alignItems="flex-end"
+                justifyContent="space-between"
+              >
+                <Stack gap="4px" flexWrap={"wrap"} direction={"row"}>
+                  {it.requirements.slice(0, 3).map((it) => {
+                    return <Chip key={it} label={it} />;
+                  })}
+                </Stack>
+                <Typography variant="body2">{it.workDirection}</Typography>
+              </Stack>
+            </Paper>
+          );
+        })}
+      </Stack>
     </Stack>
   );
 };

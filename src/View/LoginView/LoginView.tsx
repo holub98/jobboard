@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginType, loginSchema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import { login } from "~/api";
-import { AuthToken } from "~/utils/auth";
+import { AuthToken } from "~/utils/useAuth";
 
 export const LoginView = () => {
   const navigate = useNavigate();
@@ -29,8 +29,8 @@ export const LoginView = () => {
 
   const onSubmit = async (data: LoginType) => {
     await login(data);
-
     navigate("/");
+
     AuthToken();
   };
 
@@ -45,7 +45,7 @@ export const LoginView = () => {
           gap: 2,
           boxShadow: "0px 0px 010px 0px #D2D2E0",
           padding: "48px 24px 48px 24px",
-          width: 300,
+          maxWidth: 300,
           height: 400,
         }}
         component="form"
@@ -58,6 +58,7 @@ export const LoginView = () => {
           <TextField
             label="Email"
             {...register("email")}
+            sx={{ width: "100%" }}
             error={!!errors.email}
             helperText={errors.email?.message}
           />
@@ -67,6 +68,7 @@ export const LoginView = () => {
             type={isVisible ? "text" : "password"}
             error={!!errors.password}
             helperText={errors.password?.message}
+            sx={{ width: "100%" }}
             InputProps={{
               endAdornment: (
                 <InputAdornment position="end">
@@ -77,16 +79,11 @@ export const LoginView = () => {
               ),
             }}
           />
-          <Button
-            size="large"
-            variant="contained"
-            color="success"
-            type="submit"
-          >
+          <Button size="large" color="success" type="submit">
             Login
           </Button>
         </Stack>
-        <Stack direction="row" alignItems="center">
+        <Stack direction="column" alignItems="center">
           <Typography>Do not have an account?</Typography>
           <Button size="medium" variant="text" href="/signup">
             Sign up

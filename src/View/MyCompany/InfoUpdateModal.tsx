@@ -47,12 +47,13 @@ export const InfoUpdateModal = ({ initialData }: Props) => {
             component="form"
             id="info-form"
             onSubmit={handleSubmit(onSubmit)}
+            sx={{ padding: "16px 0px" }}
           >
             <InfoForm formContext={form} register={false} />
           </Box>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" size="large" onClick={onClose}>
+          <Button color="inherit" onClick={onClose}>
             Cancel
           </Button>
           <Button type="submit" form="info-form">
