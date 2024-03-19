@@ -1,4 +1,4 @@
-import { ExperienceType } from "~/hooks/useCandidate";
+import { ExperienceType } from "~/hooks";
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({

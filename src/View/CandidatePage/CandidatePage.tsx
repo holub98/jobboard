@@ -8,7 +8,7 @@ import {
 } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowBackOutlined } from "@mui/icons-material";
-import { useCandidate } from "~/hooks/useCandidate";
+import { useCandidate } from "~/hooks";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { CandidateResumePdf } from "./GeneratePDF";
 

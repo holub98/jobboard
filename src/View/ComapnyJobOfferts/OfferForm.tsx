@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import { OfferType } from "./schema";
 import { UseFormReturn, useController } from "react-hook-form";
-import { tech } from "~/state/technologies";
+import { tech } from "~/utils/technologies";
 import {
   MenuButtonBlockquote,
   MenuButtonBold,

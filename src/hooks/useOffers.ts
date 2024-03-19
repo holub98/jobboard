@@ -2,7 +2,7 @@ import { useAtomValue } from "jotai";
 import { enqueueSnackbar } from "notistack";
 import { useEffect, useMemo, useState } from "react";
 import { getAllOffers, getRecomeneded, getSingleOffer } from "~/api";
-import { filterAtom } from "~/state/filterSearch";
+import { filterAtom } from "~/utils/filterSearch";
 
 type Earnings = {
   from: string;

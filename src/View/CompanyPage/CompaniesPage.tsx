@@ -1,7 +1,7 @@
 import { Place } from "@mui/icons-material";
 import { Box, Paper, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useCompanies } from "~/hooks/useCompany";
+import { useCompanies } from "~/hooks";
 
 export const CompaniesPage = () => {
   const { allCompanies } = useCompanies();

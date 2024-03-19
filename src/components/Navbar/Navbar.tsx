@@ -24,8 +24,8 @@ import {
   Work,
 } from "@mui/icons-material";
 import { logout } from "~/api";
-import { isAuth, AuthToken } from "~/hooks";
 import { useAtomValue } from "jotai";
+import { AuthToken, isAuth } from "~/utils/auth";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);

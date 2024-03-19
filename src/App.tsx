@@ -1,6 +1,6 @@
 import { routes } from "./Router";
 import { useRoutes } from "react-router-dom";
-import { AuthToken } from "./hooks";
+import { AuthToken } from "./utils/auth";
 
 function App() {
   AuthToken();

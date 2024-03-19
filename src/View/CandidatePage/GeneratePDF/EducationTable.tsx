@@ -1,4 +1,4 @@
-import { EducationType } from "~/hooks/useCandidate";
+import { EducationType } from "~/hooks";
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({

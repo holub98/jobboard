@@ -33,7 +33,7 @@ import {
 } from "mui-tiptap";
 import { EditorEvents } from "@tiptap/core";
 import StarterKit from "@tiptap/starter-kit";
-import { tech } from "~/state/technologies";
+import { tech } from "~/utils/technologies";
 import { ExperienceSection } from "./ApplyForm/ExperienceSection";
 import { EducationSection } from "./ApplyForm/EducationSection";
 import { LanguageSection } from "./ApplyForm/LanguageSection";
