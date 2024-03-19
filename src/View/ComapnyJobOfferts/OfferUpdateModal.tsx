@@ -51,7 +51,7 @@ export const OfferUpdateModal = ({ initialData, offerId }: Props) => {
           />
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" size="large" onClick={onClose}>
+          <Button color="inherit" variant="contained" onClick={onClose}>
             Cancel
           </Button>
           <Button type="submit" form="offer-form">

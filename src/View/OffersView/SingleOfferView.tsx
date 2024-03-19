@@ -42,8 +42,8 @@ export const SingleOfferView = () => {
         borderRadius="10px"
         marginBottom={2}
       >
-        <Typography variant="h5">{data.offer.name}</Typography>
-        <Typography variant="h6">
+        <Typography variant="h6">{data.offer.name}</Typography>
+        <Typography variant="subtitle1" fontWeight="bold">
           {data.offer.earnings.from}-{data.offer.earnings.to} PLN
         </Typography>
       </Stack>
@@ -54,24 +54,28 @@ export const SingleOfferView = () => {
         marginBottom={2}
       >
         <Typography variant="h5">{data.company.name}</Typography>
-        <Stack direction="row" alignItems="center" gap="4px">
-          <Typography variant="h6" fontWeight="bold">
+        <Stack direction="column" alignItems="flex-start" gap="4px">
+          <Typography variant="subtitle1" fontWeight="bold">
             Address:
           </Typography>
-          <Stack direction="row" gap="4px">
-            <Typography variant="h6">
+          <Stack
+            sx={(theme) => ({
+              [theme.breakpoints.up("md")]: {
+                flexDirection: "row",
+              },
+              flexDirection: "column",
+              gap: "4px",
+            })}
+          >
+            <Typography variant="subtitle2">
               {data.company.localization.street}{" "}
-            </Typography>
-            <Typography variant="h6">
               {data.company.localization.number},
             </Typography>
-            <Typography variant="h6">
-              {data.company.localization.zipCode}
+            <Typography variant="subtitle2">
+              {data.company.localization.zipCode}{" "}
+              {data.company.localization.city}
             </Typography>
-            <Typography variant="h6">
-              {data.company.localization.city},
-            </Typography>
-            <Typography variant="h6">
+            <Typography variant="subtitle2">
               {data.company.localization.country}
             </Typography>
           </Stack>
@@ -84,7 +88,7 @@ export const SingleOfferView = () => {
         marginBottom={2}
       >
         <Typography variant="h5">Tech:</Typography>
-        <Stack gap="4px" direction="row">
+        <Stack gap="4px" direction="row" flexWrap="wrap">
           {data.offer.requirements.map((it) => (
             <Chip label={it} />
           ))}

@@ -7,25 +7,15 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemIcon,
   ListItemText,
   Stack,
 } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { breakTheme } from "../../theme";
-import {
-  ChevronRight,
-  LocalOffer,
-  Login,
-  Logout,
-  MenuRounded,
-  Work,
-} from "@mui/icons-material";
+import { ChevronRight, MenuRounded } from "@mui/icons-material";
 import { logout } from "~/api";
 import { useAtomValue } from "jotai";
-import { AuthToken, isAuth } from "~/utils/auth";
+import { AuthToken, isAuth } from "~/utils/useAuth";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -42,12 +32,28 @@ export const Navbar = () => {
   return (
     <Stack
       direction="row"
-      style={{
+      sx={(theme) => ({
         minHeight: "60px",
-        background: `${blue[500]}`,
-        paddingLeft: "64px",
-        paddingRight: "64px",
-      }}
+        paddingLeft: "24px",
+        backgroundColor: "#faf7f7",
+        paddingRight: "24px",
+        [theme.breakpoints.up("xl")]: {
+          paddingLeft: "300px",
+          paddingRight: "300px",
+        },
+        [theme.breakpoints.up("lg")]: {
+          paddingLeft: "150px",
+          paddingRight: "150px",
+        },
+        [theme.breakpoints.up("md")]: {
+          paddingLeft: "96px",
+          paddingRight: "96px",
+        },
+        [theme.breakpoints.up("sm")]: {
+          paddingLeft: "64px",
+          paddingRight: "64px",
+        },
+      })}
       alignItems="center"
       justifyContent="space-between"
     >
@@ -56,9 +62,9 @@ export const Navbar = () => {
       </Link>
       <Stack
         direction="row"
-        gap={3}
+        gap={1}
         sx={(theme) => ({
-          [theme.breakpoints.down(breakTheme.breakpoints.values.md)]: {
+          [theme.breakpoints.down("sm")]: {
             display: "none",
           },
         })}
@@ -66,7 +72,7 @@ export const Navbar = () => {
         <Button
           variant="text"
           size="large"
-          sx={{ fontWeight: "bold", color: `${blue[50]}` }}
+          sx={{ fontWeight: "bold", color: `#9c9898` }}
           href="/offers"
         >
           Offerts
@@ -75,65 +81,52 @@ export const Navbar = () => {
           variant="text"
           href="/company"
           size="large"
-          sx={{ fontWeight: "bold", color: `${blue[50]}` }}
+          sx={{ fontWeight: "bold", color: `#9c9898` }}
         >
           Companies
         </Button>
         {isLogin && (
           <Button
             variant="text"
-            href="/my-offers"
-            size="large"
-            sx={{ fontWeight: "bold", color: `${blue[50]}` }}
-          >
-            My offers
-          </Button>
-        )}
-        {isLogin && (
-          <Button
-            variant="text"
             href="/me"
             size="large"
-            sx={{ fontWeight: "bold", color: `${blue[50]}` }}
+            sx={{ fontWeight: "bold", color: `#9c9898` }}
           >
-            My account
+            Account
           </Button>
         )}
         {isLogin ? (
-          <Fab
-            variant="extended"
-            size="small"
-            color="primary"
+          <Button
+            variant="text"
+            size="large"
             onClick={onLogout}
-            sx={{ fontWeight: "bold" }}
+            sx={{ fontWeight: "bold", color: `#9c9898` }}
           >
             Logout
-          </Fab>
+          </Button>
         ) : (
-          <Fab
-            variant="extended"
-            size="small"
-            color="primary"
+          <Button
+            variant="text"
             href="/login"
-            sx={{ fontWeight: "bold" }}
+            size="large"
+            sx={{ fontWeight: "bold", color: `#9c9898` }}
           >
             Login
-          </Fab>
+          </Button>
         )}
       </Stack>
       <Box
         sx={(theme) => ({
-          [theme.breakpoints.up(breakTheme.breakpoints.values.md)]: {
+          [theme.breakpoints.up("sm")]: {
             display: "none",
           },
-          with: 300,
         })}
       >
         <Fab
           size="small"
           onClick={() => setIsOpen(true)}
           sx={(theme) => ({
-            [theme.breakpoints.up(breakTheme.breakpoints.values.md)]: {
+            [theme.breakpoints.up("sm")]: {
               display: "none",
             },
           })}
@@ -145,7 +138,7 @@ export const Navbar = () => {
           open={isOpen}
           onClose={() => setIsOpen(false)}
           sx={(theme) => ({
-            [theme.breakpoints.up(breakTheme.breakpoints.values.md)]: {
+            [theme.breakpoints.up("sm")]: {
               display: "none",
             },
             flexDirection: "column",
@@ -158,46 +151,31 @@ export const Navbar = () => {
               </Fab>
             </Box>
             <Divider />
-            <List>
+            <List sx={{ display: "flex", flexDirection: "column" }}>
               <ListItem>
                 <ListItemButton href="/offers">
-                  <ListItemIcon>
-                    <LocalOffer />
-                  </ListItemIcon>
                   <ListItemText primary={"Ofers"} />
                 </ListItemButton>
               </ListItem>
               <ListItem>
                 <ListItemButton href="/company">
-                  <ListItemIcon>
-                    <Work />
-                  </ListItemIcon>
                   <ListItemText primary={"Companies"} />
                 </ListItemButton>
               </ListItem>
               {isLogin && (
                 <ListItem>
-                  <ListItemButton href="/my-offers">
-                    <ListItemIcon>
-                      <Work />
-                    </ListItemIcon>
-                    <ListItemText primary={"My offerts"} />
+                  <ListItemButton href="/me">
+                    <ListItemText primary={"Account"} />
                   </ListItemButton>
                 </ListItem>
               )}
               <ListItem>
                 {isLogin ? (
                   <ListItemButton onClick={onLogout}>
-                    <ListItemIcon>
-                      <Logout />
-                    </ListItemIcon>
                     <ListItemText primary={"Logout"} />
                   </ListItemButton>
                 ) : (
                   <ListItemButton href="/">
-                    <ListItemIcon>
-                      <Login />
-                    </ListItemIcon>
                     <ListItemText primary={"Login"} />
                   </ListItemButton>
                 )}

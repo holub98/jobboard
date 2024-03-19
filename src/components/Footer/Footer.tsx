@@ -1,6 +1,5 @@
 import { GitHub, LinkedIn } from "@mui/icons-material";
 import { IconButton, Stack, Typography } from "@mui/material";
-import { blue } from "@mui/material/colors";
 
 export const Footer = () => {
   return (
@@ -9,19 +8,22 @@ export const Footer = () => {
       alignItems="center"
       style={{
         minHeight: "120px",
-        background: `${blue[500]}`,
+        backgroundColor: "#faf7f7",
       }}
       justifyContent="center"
     >
-      <Typography>Created by: Gabriel Hołubowicz</Typography>
+      <Typography color="#9c9898">Created by: Gabriel Hołubowicz</Typography>
       <Stack direction="column" gap="4px" alignItems="center">
-        <Typography>gabrielholubowicz98@gmail.com</Typography>
+        <Typography color="#9c9898">gabrielholubowicz98@gmail.com</Typography>
         <Stack direction="row" gap="8px" alignItems="center">
-          <IconButton href="https://github.com/holub98">
-            <GitHub />
+          <IconButton href="https://github.com/holub98" target="_blank">
+            <GitHub sx={{ color: "#9c9898" }} />
           </IconButton>
-          <IconButton href="https://github.com/holub98">
-            <LinkedIn />
+          <IconButton
+            href="https://www.linkedin.com/in/holubowiczg"
+            target="_blank"
+          >
+            <LinkedIn sx={{ color: "#9c9898" }} />
           </IconButton>
         </Stack>
       </Stack>

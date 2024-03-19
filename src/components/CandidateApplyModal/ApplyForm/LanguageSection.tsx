@@ -1,5 +1,7 @@
 import {
   Button,
+  FormControl,
+  InputLabel,
   MenuItem,
   Select,
   SelectChangeEvent,
@@ -57,31 +59,56 @@ export const LanguageSection = ({ formContext }: Props) => {
 
       {fields.map((field, index) => {
         return (
-          <Stack key={field.id}>
-            <Typography>{field.name}</Typography>
-            <Typography>{field.level}</Typography>
+          <Stack
+            key={field.id}
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Typography>
+              {field.name} - {field.level}
+            </Typography>
 
-            <Button onClick={() => handleRemove(index)}>Delete</Button>
+            <Button color="error" onClick={() => handleRemove(index)}>
+              Delete
+            </Button>
           </Stack>
         );
       })}
-      <Stack>
+      <Stack
+        sx={(theme) => ({
+          [theme.breakpoints.up("md")]: {
+            flexDirection: "row",
+          },
+          flexDirection: "column",
+          gap: "16px",
+        })}
+      >
         <TextField
           label="Language"
           value={value.name}
           onChange={(e) =>
             setValue((prev) => ({ ...prev, name: e.target.value }))
           }
+          sx={{ width: "100%" }}
         />
-        <Select label="Level" value={value.level} onChange={handleLevel}>
-          <MenuItem value="A1">A1</MenuItem>
-          <MenuItem value="A2">A2</MenuItem>
-          <MenuItem value="B1">B1</MenuItem>
-          <MenuItem value="B2">B2</MenuItem>
-          <MenuItem value="C1">C1</MenuItem>
-          <MenuItem value="C2">C2</MenuItem>
-          <MenuItem value="Native">NATIVE</MenuItem>
-        </Select>
+        <FormControl sx={{ width: "100%" }}>
+          <InputLabel id="label">Level</InputLabel>
+          <Select
+            label="Level"
+            value={value.level}
+            onChange={handleLevel}
+            sx={{ width: "100%" }}
+          >
+            <MenuItem value="A1">A1</MenuItem>
+            <MenuItem value="A2">A2</MenuItem>
+            <MenuItem value="B1">B1</MenuItem>
+            <MenuItem value="B2">B2</MenuItem>
+            <MenuItem value="C1">C1</MenuItem>
+            <MenuItem value="C2">C2</MenuItem>
+            <MenuItem value="Native">NATIVE</MenuItem>
+          </Select>
+        </FormControl>
       </Stack>
       <Button onClick={handleAdd}>Add</Button>
     </Stack>

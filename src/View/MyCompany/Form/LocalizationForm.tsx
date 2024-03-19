@@ -1,6 +1,5 @@
-import { TextField, styled } from "@mui/material";
+import { Stack, TextField, styled } from "@mui/material";
 import { UseFormReturn, useController } from "react-hook-form";
-import { breakTheme } from "~/theme";
 import { CompanyType } from "../schema";
 
 const StackDiv = styled("div")(({ theme }) => ({
@@ -8,7 +7,7 @@ const StackDiv = styled("div")(({ theme }) => ({
   flexDirection: "row",
   gap: 16,
   alignItems: "center",
-  [theme.breakpoints.down(breakTheme.breakpoints.values.md)]: {
+  [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
 }));
@@ -44,19 +43,8 @@ export const LocalizationForm = ({ formContext }: Props) => {
   });
 
   return (
-    <>
+    <Stack gap="16px">
       <StackDiv>
-        <TextField
-          sx={{ width: "100%" }}
-          label="Country"
-          name={country.field.name}
-          value={country.field.value}
-          ref={country.field.ref}
-          onBlur={country.field.onBlur}
-          onChange={country.field.onChange}
-          error={!!errors.localization?.country}
-          helperText={errors.localization?.country?.message}
-        />
         <TextField
           sx={{ width: "100%" }}
           label="City"
@@ -67,6 +55,17 @@ export const LocalizationForm = ({ formContext }: Props) => {
           onChange={city.field.onChange}
           error={!!errors.localization?.city}
           helperText={errors.localization?.city?.message}
+        />
+        <TextField
+          sx={{ width: "100%" }}
+          label="Country"
+          name={country.field.name}
+          value={country.field.value}
+          ref={country.field.ref}
+          onBlur={country.field.onBlur}
+          onChange={country.field.onChange}
+          error={!!errors.localization?.country}
+          helperText={errors.localization?.country?.message}
         />
       </StackDiv>
       <StackDiv>
@@ -97,10 +96,11 @@ export const LocalizationForm = ({ formContext }: Props) => {
         <TextField
           sx={(theme) => ({
             width: "calc(50% - 8px)",
-            [theme.breakpoints.down(breakTheme.breakpoints.values.md)]: {
+            [theme.breakpoints.down("md")]: {
               width: "100%",
             },
           })}
+          label="Zip code"
           name={zipCode.field.name}
           value={zipCode.field.value}
           ref={zipCode.field.ref}
@@ -110,6 +110,6 @@ export const LocalizationForm = ({ formContext }: Props) => {
           helperText={errors.localization?.zipCode?.message}
         />
       </StackDiv>
-    </>
+    </Stack>
   );
 };

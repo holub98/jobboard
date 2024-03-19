@@ -1,4 +1,3 @@
-import { Add } from "@mui/icons-material";
 import {
   Button,
   Dialog,
@@ -41,8 +40,7 @@ export const OfferCreateModal = () => {
   };
   return (
     <>
-      <Button variant="contained" size="large" onClick={() => setIsOpen(true)}>
-        <Add />
+      <Button variant="text" onClick={() => setIsOpen(true)}>
         Add offer
       </Button>
       <Dialog open={isOpen}>
@@ -51,7 +49,12 @@ export const OfferCreateModal = () => {
           <OfferForm formContext={form} onSubmit={onSubmit} />
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" size="large" onClick={onClose}>
+          <Button
+            color="inherit"
+            variant="contained"
+            size="large"
+            onClick={onClose}
+          >
             Cancel
           </Button>
           <Button type="submit" form="offer-form">

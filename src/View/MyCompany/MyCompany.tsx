@@ -32,13 +32,12 @@ export const MyCompany = () => {
           justifyContent="space-between"
         >
           <Stack>
-            <Typography>My profile</Typography>
-            <Typography>
+            <Typography variant="h6">
               <Link
                 to={"/my-offers"}
                 style={{ textDecoration: "none", color: "black" }}
               >
-                My offers offers: {data.myOffersCount}
+                My offers: {data.myOffersCount}
               </Link>
             </Typography>
           </Stack>
@@ -47,21 +46,31 @@ export const MyCompany = () => {
           </Stack>
         </Stack>
       </Paper>
-
-      <Stack direction="row" justifyContent="space-between" gap="16px">
+      <Stack
+        sx={(theme) => ({
+          [theme.breakpoints.up("sm")]: {
+            flexDirection: "row",
+          },
+          gap: "16px",
+          flexDirection: "column",
+        })}
+      >
         <Paper
           elevation={3}
-          sx={{
+          sx={(theme) => ({
+            [theme.breakpoints.up("sm")]: {
+              width: "100%",
+            },
             padding: "8px 16px",
             display: "flex",
             flexDirection: "column",
             gap: "8px",
-            width: "100%",
+
             justifyContent: "space-between",
-          }}
+          })}
         >
           <Stack direction="row" justifyContent="space-between">
-            <Typography>Company info:</Typography>
+            <Typography variant="h6">Company info:</Typography>
             <InfoUpdateModal initialData={data.company} />
           </Stack>
           <Stack>
@@ -69,18 +78,21 @@ export const MyCompany = () => {
             <Typography>Email: {data.company.email}</Typography>
           </Stack>
         </Paper>
+
         <Paper
           elevation={3}
-          sx={{
+          sx={(theme) => ({
+            [theme.breakpoints.up("sm")]: {
+              width: "100%",
+            },
             padding: "8px 16px",
             display: "flex",
             flexDirection: "column",
             gap: "8px",
-            width: "100%",
-          }}
+          })}
         >
           <Stack direction="row" justifyContent="space-between">
-            <Typography>Company info:</Typography>
+            <Typography variant="h6">Company address:</Typography>
             <LocalizationUpdateModal initialData={data.company} />
           </Stack>
           <Stack>
@@ -108,7 +120,7 @@ export const MyCompany = () => {
         }}
       >
         <Stack direction="row" justifyContent="space-between">
-          <Typography>About me:</Typography>
+          <Typography variant="h6">About me:</Typography>
 
           <DescriptionUpdateModal initialData={data.company} />
         </Stack>
