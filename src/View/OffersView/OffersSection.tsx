@@ -2,15 +2,15 @@ import { Place } from "@mui/icons-material";
 import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
 import { useAtomValue } from "jotai";
 import { Link } from "react-router-dom";
-import { useOffers } from "~/hooks/useOffers";
-import { filterAtom } from "~/state/filterSearch";
+import { useOffers } from "~/hooks";
+import { filterAtom } from "~/utils/filterSearch";
 
 export const OffersSection = () => {
   const { allOffers } = useOffers();
   if (allOffers === undefined) {
     return null;
   }
-const filter = useAtomValue(filterAtom);
+  const filter = useAtomValue(filterAtom);
   const offers = allOffers();
   if (offers === undefined) {
     return null;

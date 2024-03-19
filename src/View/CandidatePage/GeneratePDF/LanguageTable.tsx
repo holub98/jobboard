@@ -1,4 +1,4 @@
-import { LanguagesType } from "~/hooks/useCandidate";
+import { LanguagesType } from "~/hooks";
 import { StyleSheet, Text, View } from "@react-pdf/renderer";
 
 const styles = StyleSheet.create({

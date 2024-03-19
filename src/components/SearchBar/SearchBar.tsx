@@ -11,10 +11,10 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { FilterType, filterSchema } from "./schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { tech } from "~/state/technologies";
+import { tech } from "~/utils/technologies";
 import { useNavigate } from "react-router-dom";
 import { atom, useAtom } from "jotai";
-import { filterAtom } from "~/state/filterSearch";
+import { filterAtom } from "~/utils/filterSearch";
 
 type Props = {
   direction: "row" | "column";

@@ -1,5 +1,5 @@
 import { SearchBar } from "~/components";
-import { useOffers } from "~/hooks/useOffers";
+import { useOffers } from "~/hooks";
 import { OffersSection } from "./OffersSection";
 
 export const OffersView = () => {

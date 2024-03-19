@@ -1,5 +1,5 @@
 import { Chip, IconButton, Stack, Typography } from "@mui/material";
-import { useCompanyOffers } from "~/hooks/useCompanyOfferts";
+import { useCompanyOffers } from "~/hooks";
 import { ZeroCountOffer } from "./ZeroCountOffer";
 import { OfferCreateModal } from "./OfferCreateModal";
 import {

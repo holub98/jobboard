@@ -1,4 +1,4 @@
-import { CandidateFullInfoType } from "~/hooks/useCandidate";
+import { CandidateFullInfoType } from "~/hooks";
 import { BaseDocumentPdf } from "./BaseDocumentPdf";
 import { View, Text, StyleSheet } from "@react-pdf/renderer";
 import { LanguageTable } from "./LanguageTable";

@@ -1,6 +1,6 @@
 import { Paper, Stack, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
-import { useCompanies } from "~/hooks/useCompany";
+import { useCompanies } from "~/hooks";
 import { InfoUpdateModal } from "./InfoUpdateModal";
 import { LocalizationUpdateModal } from "./LocalizationUpdateModal";
 import { DescriptionUpdateModal } from "./DescriptionUpdateModal";

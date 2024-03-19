@@ -14,7 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginType, loginSchema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import { login } from "~/api";
-import { AuthToken } from "~/hooks";
+import { AuthToken } from "~/utils/auth";
 
 export const LoginView = () => {
   const navigate = useNavigate();

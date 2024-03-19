@@ -1,10 +1,9 @@
 import { IconButton, Stack, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCompanyOffers } from "~/hooks/useCompanyOfferts";
 import { OfferUpdateModal } from "../OfferUpdateModal";
 import { OfferDeleteModal } from "../OfferDeleteModal";
 import { ArrowBackOutlined } from "@mui/icons-material";
-import { useCandidate } from "~/hooks/useCandidate";
+import { useCandidate, useCompanyOffers } from "~/hooks";
 import { OfferSection } from "./OfferSection";
 import { CandiateSection } from "./CandiateSection";
 
@@ -23,7 +22,6 @@ export const SingleOfferPage = () => {
   if (offer === undefined || candidates === undefined) {
     return null;
   }
-  console.log(offer);
   return (
     <Stack height="100%">
       <Stack direction="row" alignItems="center" justifyContent="space-between">

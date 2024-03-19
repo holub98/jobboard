@@ -1,6 +1,6 @@
 import { Call, MailOutline } from "@mui/icons-material";
 import { Button, Stack, Typography } from "@mui/material";
-import { CandidateType } from "~/hooks/useCandidate";
+import { CandidateType } from "~/hooks";
 
 type Props = {
   candidates: CandidateType[];

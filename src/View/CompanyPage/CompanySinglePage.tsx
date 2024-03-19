@@ -1,6 +1,6 @@
 import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
 import { Link, useParams } from "react-router-dom";
-import { useCompanies } from "~/hooks/useCompany";
+import { useCompanies } from "~/hooks";
 
 export const CompanySinglePage = () => {
   const { companyId } = useParams();

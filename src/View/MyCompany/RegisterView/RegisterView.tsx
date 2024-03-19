@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import { InfoForm } from "../Form/InfoForm";
 import { LocalizationForm } from "../Form/LocalizationForm";
 import { DescriptionForm } from "../Form/DescriptionForm";
-import { AuthToken } from "~/hooks";
+import { AuthToken } from "~/utils/auth";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",

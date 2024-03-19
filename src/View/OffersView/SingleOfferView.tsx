@@ -2,7 +2,7 @@ import { ArrowBack, Business, Home, HomeWork } from "@mui/icons-material";
 import { Chip, IconButton, Stack, Typography } from "@mui/material";
 import { useNavigate, useParams } from "react-router-dom";
 import { CandidateApplyModal } from "~/components";
-import { useOffers } from "~/hooks/useOffers";
+import { useOffers } from "~/hooks";
 
 export const SingleOfferView = () => {
   const { offerId } = useParams();

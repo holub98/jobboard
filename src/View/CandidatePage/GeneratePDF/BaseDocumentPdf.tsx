@@ -9,7 +9,7 @@ import {
 import roboto400 from "~/assets/Roboto-Regular.ttf";
 import roboto700 from "~/assets/Roboto-Bold.ttf";
 import { ReactNode } from "react";
-import { CompanyType, Offers } from "~/hooks/useCandidate";
+import { CompanyType, Offers } from "~/hooks";
 
 Font.register({
   family: "Roboto",
