@@ -1,4 +1,4 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography, styled } from "@mui/material";
 import { UseFormReturn, useFieldArray } from "react-hook-form";
 import { ApplyType } from "../schema";
 import { useState } from "react";
@@ -13,6 +13,15 @@ type ExperienceType = {
 type Props = {
   formContext: UseFormReturn<ApplyType>;
 };
+const StackDiv = styled("div")(({ theme }) => ({
+  display: "flex",
+  gap: "16px",
+  alignItems: "center",
+  [theme.breakpoints.up("md")]: {
+    flexDirection: "row",
+  },
+  flexDirection: "column",
+}));
 export const ExperienceSection = ({ formContext }: Props) => {
   const { control, trigger } = formContext;
 
@@ -57,49 +66,70 @@ export const ExperienceSection = ({ formContext }: Props) => {
     }));
   };
   return (
-    <Stack>
-      <Typography>Experience</Typography>
+    <Stack gap="16px">
+      <Typography variant="h6">Experience</Typography>
 
       {fields.map((field, index) => {
         return (
           <Stack key={field.id}>
-            <Typography>{field.companyName}</Typography>
-            <Typography>{field.job}</Typography>
-            <Typography>{field.dateFrom}</Typography>
-            <Typography>
-              {field.dateTo === undefined ? "preset" : field.dateTo}
-            </Typography>
-            <Button onClick={() => handleRemove(index)}>Delete</Button>
+            <Stack
+              sx={(theme) => ({
+                [theme.breakpoints.up("sm")]: {
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                },
+                flexDirection: "column",
+              })}
+            >
+              <Typography>{field.companyName}</Typography>
+              <Typography>
+                {field.dateFrom} -
+                {field.dateTo === "" ? "present" : field.dateTo}
+              </Typography>
+            </Stack>
+            <Stack justifyContent="space-between" direction="row">
+              <Typography>{field.job}</Typography>
+              <Button color="error" onClick={() => handleRemove(index)}>
+                Delete
+              </Button>
+            </Stack>
           </Stack>
         );
       })}
-      <Stack>
-        <TextField
-          label="Company name"
-          value={value.companyName}
-          onChange={(e) =>
-            setValue((prev) => ({ ...prev, companyName: e.target.value }))
-          }
-        />
-        <TextField
-          label="Position"
-          value={value.job}
-          onChange={(e) =>
-            setValue((prev) => ({ ...prev, job: e.target.value }))
-          }
-        />
+      <Stack gap="16px">
+        <StackDiv>
+          <TextField
+            label="Company name"
+            value={value.companyName}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, companyName: e.target.value }))
+            }
+            sx={{ width: "100%" }}
+          />
+          <TextField
+            sx={{ width: "100%" }}
+            label="Position"
+            value={value.job}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, job: e.target.value }))
+            }
+          />
+        </StackDiv>
+        <StackDiv>
+          <DatePicker
+            sx={{ width: "100%" }}
+            label="Date from"
+            value={value.dateFrom ? new Date(value.dateFrom) : null}
+            onChange={handleDateFromChange}
+          />
 
-        <DatePicker
-          label="Date from"
-          value={value.dateFrom ? new Date(value.dateFrom) : null}
-          onChange={handleDateFromChange}
-        />
-
-        <DatePicker
-          label="Date to"
-          value={value.dateTo ? new Date(value.dateTo) : null}
-          onChange={handleDateToChange}
-        />
+          <DatePicker
+            sx={{ width: "100%" }}
+            label="Date to"
+            value={value.dateTo ? new Date(value.dateTo) : null}
+            onChange={handleDateToChange}
+          />
+        </StackDiv>
       </Stack>
       <Button onClick={handleAdd}>Add</Button>
     </Stack>

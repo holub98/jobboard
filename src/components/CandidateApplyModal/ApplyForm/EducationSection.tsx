@@ -1,4 +1,4 @@
-import { Button, Stack, TextField, Typography } from "@mui/material";
+import { Button, Stack, TextField, Typography, styled } from "@mui/material";
 import { UseFormReturn, useFieldArray } from "react-hook-form";
 import { ApplyType } from "../schema";
 import { useState } from "react";
@@ -13,6 +13,15 @@ export type EducationType = {
 type Props = {
   formContext: UseFormReturn<ApplyType>;
 };
+const StackDiv = styled("div")(({ theme }) => ({
+  display: "flex",
+  gap: "16px",
+  alignItems: "center",
+  [theme.breakpoints.up("md")]: {
+    flexDirection: "row",
+  },
+  flexDirection: "column",
+}));
 export const EducationSection = ({ formContext }: Props) => {
   const { control, trigger } = formContext;
 
@@ -63,43 +72,64 @@ export const EducationSection = ({ formContext }: Props) => {
       {fields.map((field, index) => {
         return (
           <Stack key={field.id}>
-            <Typography>{field.schoolName}</Typography>
-            <Typography>{field.faculty}</Typography>
-            <Typography>{field.dateFrom}</Typography>
-            <Typography>
-              {field.dateTo === "" ? "preset" : field.dateTo}
-            </Typography>
-            <Button onClick={() => handleRemove(index)}>Delete</Button>
+            <Stack
+              sx={(theme) => ({
+                [theme.breakpoints.up("sm")]: {
+                  justifyContent: "space-between",
+                  flexDirection: "row",
+                },
+                flexDirection: "column",
+              })}
+            >
+              <Typography>{field.schoolName}</Typography>
+              <Typography>
+                {field.dateFrom} -{" "}
+                {field.dateTo === "" ? "preset" : field.dateTo}
+              </Typography>
+            </Stack>
+            <Stack justifyContent="space-between" direction="row">
+              <Typography>{field.faculty}</Typography>
+              <Button color="error" onClick={() => handleRemove(index)}>
+                Delete
+              </Button>
+            </Stack>
           </Stack>
         );
       })}
-      <Stack>
-        <TextField
-          label="School name"
-          value={value.schoolName}
-          onChange={(e) =>
-            setValue((prev) => ({ ...prev, schoolName: e.target.value }))
-          }
-        />
-        <TextField
-          label="Faculty"
-          value={value.faculty}
-          onChange={(e) =>
-            setValue((prev) => ({ ...prev, faculty: e.target.value }))
-          }
-        />
+      <Stack gap="16px">
+        <StackDiv>
+          <TextField
+            label="School name"
+            value={value.schoolName}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, schoolName: e.target.value }))
+            }
+            sx={{ width: "100%" }}
+          />
+          <TextField
+            label="Faculty"
+            value={value.faculty}
+            onChange={(e) =>
+              setValue((prev) => ({ ...prev, faculty: e.target.value }))
+            }
+            sx={{ width: "100%" }}
+          />
+        </StackDiv>
+        <StackDiv>
+          <DatePicker
+            label="Date from"
+            value={value.dateFrom ? new Date(value.dateFrom) : null}
+            onChange={handleDateFromChange}
+            sx={{ width: "100%" }}
+          />
 
-        <DatePicker
-          label="Date from"
-          value={value.dateFrom ? new Date(value.dateFrom) : null}
-          onChange={handleDateFromChange}
-        />
-
-        <DatePicker
-          label="Date to"
-          value={value.dateTo ? new Date(value.dateTo) : null}
-          onChange={handleDateToChange}
-        />
+          <DatePicker
+            label="Date to"
+            value={value.dateTo ? new Date(value.dateTo) : null}
+            onChange={handleDateToChange}
+            sx={{ width: "100%" }}
+          />
+        </StackDiv>
       </Stack>
       <Button onClick={handleAdd}>Add</Button>
     </Stack>

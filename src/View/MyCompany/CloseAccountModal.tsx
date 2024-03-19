@@ -32,10 +32,10 @@ export const CloseAccountModal = () => {
           <DialogContentText>All your data will be deleted?</DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" size="large" onClick={onClose}>
+          <Button color="inherit" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit" onClick={onSubmit}>
+          <Button color="error" type="submit" onClick={onSubmit}>
             Delete
           </Button>
         </DialogActions>

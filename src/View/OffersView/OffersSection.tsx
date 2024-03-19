@@ -1,16 +1,14 @@
 import { Place } from "@mui/icons-material";
 import { Box, Chip, Paper, Stack, Typography } from "@mui/material";
-import { useAtomValue } from "jotai";
 import { Link } from "react-router-dom";
 import { useOffers } from "~/hooks";
-import { filterAtom } from "~/utils/filterSearch";
 
 export const OffersSection = () => {
   const { allOffers } = useOffers();
   if (allOffers === undefined) {
     return null;
   }
-  const filter = useAtomValue(filterAtom);
+
   const offers = allOffers();
   if (offers === undefined) {
     return null;
@@ -49,9 +47,14 @@ export const OffersSection = () => {
             <Typography variant="subtitle2">{it.company.name}</Typography>
             <Stack
               direction="row"
-              alignItems="center"
+              alignItems="flex-end"
               justifyContent="space-between"
             >
+              <Stack gap="4px" flexWrap={"wrap"} direction={"row"}>
+                {it.offer.requirements.slice(0, 3).map((it) => {
+                  return <Chip key={it} label={it} />;
+                })}
+              </Stack>
               <Box
                 sx={{
                   display: "flex",
@@ -64,11 +67,6 @@ export const OffersSection = () => {
                   {it.company.localization.city},{" "}
                   {it.company.localization.country}, {it.offer.workDirection}
                 </Typography>
-              </Box>
-              <Box sx={{ display: "flex", gap: "4px" }}>
-                {it.offer.requirements.slice(0, 3).map((it) => {
-                  return <Chip key={it} label={it} />;
-                })}
               </Box>
             </Stack>
           </Paper>

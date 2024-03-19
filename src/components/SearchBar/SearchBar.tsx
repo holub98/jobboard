@@ -16,13 +16,9 @@ import { useNavigate } from "react-router-dom";
 import { atom, useAtom } from "jotai";
 import { filterAtom } from "~/utils/filterSearch";
 
-type Props = {
-  direction: "row" | "column";
-};
-
 const toggleAtom = atom<boolean>(false);
 
-export const SearchBar = ({ direction }: Props) => {
+export const SearchBar = () => {
   const navigate = useNavigate();
 
   const [check, setCheck] = useAtom(toggleAtom);
@@ -64,21 +60,34 @@ export const SearchBar = ({ direction }: Props) => {
         flexDirection: "column",
         gap: 2,
         boxShadow: "0px 0px 010px 0px #D2D2E0",
-        padding: "48px 24px 48px 24px",
+        padding: "32px 24px 32px 24px",
         justifyContent: "center",
-        alignItem: "center",
+        alignItems: "center",
       }}
       component="form"
       onSubmit={handleSubmit(onSubmit)}
     >
       <Typography variant="h5">Find your dream work</Typography>
-      <Stack direction={`${direction}`} justifyContent={"space-between"}>
-        <Stack direction={`${direction}`} gap="8px">
-          <TextField
-            label="Job title, keyword"
-            {...register("name")}
-            sx={{ width: "400px" }}
-          />
+
+      <Stack
+        gap="8px"
+        sx={(theme) => ({
+          flexDirection: "column",
+          [theme.breakpoints.up("lg")]: {
+            flexDirection: "row",
+          },
+        })}
+      >
+        <Stack
+          gap="8px"
+          sx={(theme) => ({
+            flexDirection: "column",
+            [theme.breakpoints.up("md")]: {
+              flexDirection: "row",
+            },
+          })}
+        >
+          <TextField label="Job title, keyword" {...register("name")} />
           <FormControl>
             <Controller
               name="requirements"
@@ -100,14 +109,24 @@ export const SearchBar = ({ direction }: Props) => {
                       {...params}
                       label="Tech"
                       placeholder="Tech"
-                      sx={{ width: "400px" }}
+                      sx={{ minWidth: "250px" }}
                     />
                   )}
                 />
               )}
             />
           </FormControl>
-
+        </Stack>
+        <Stack
+          gap="8px"
+          sx={(theme) => ({
+            flexDirection: "column",
+            [theme.breakpoints.up("sm")]: {
+              flexDirection: "row",
+            },
+          })}
+        >
+          <TextField label="Localization" {...register("localization")} />
           <FormControl>
             <Controller
               name="workDirection"
@@ -126,10 +145,10 @@ export const SearchBar = ({ direction }: Props) => {
               )}
             />
           </FormControl>
-
-          <TextField label="Localization" {...register("localization")} />
         </Stack>
-        <Button onClick={onClear} sx={{ height: "56px" }}>
+      </Stack>
+      <Stack direction="row">
+        <Button color="inherit" onClick={onClear} sx={{ height: "56px" }}>
           Clear
         </Button>
         <Button sx={{ height: "56px" }} type="submit">

@@ -1,16 +1,21 @@
 import { useState } from "react";
 import { CompanyType } from "../schema";
 import { UseFormReturn, useController } from "react-hook-form";
-import { IconButton, InputAdornment, TextField, styled } from "@mui/material";
+import {
+  IconButton,
+  InputAdornment,
+  Stack,
+  TextField,
+  styled,
+} from "@mui/material";
 import { Visibility, VisibilityOff } from "@mui/icons-material";
-import { breakTheme } from "~/theme";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
   flexDirection: "row",
   gap: 16,
   alignItems: "center",
-  [theme.breakpoints.down(breakTheme.breakpoints.values.md)]: {
+  [theme.breakpoints.down("md")]: {
     flexDirection: "column",
   },
 }));
@@ -39,7 +44,7 @@ export const InfoForm = ({ formContext, register }: Props) => {
   });
 
   return (
-    <>
+    <Stack gap="16px">
       <TextField
         label="Name"
         name={name.field.name}
@@ -85,6 +90,6 @@ export const InfoForm = ({ formContext, register }: Props) => {
           />
         )}
       </StackDiv>
-    </>
+    </Stack>
   );
 };

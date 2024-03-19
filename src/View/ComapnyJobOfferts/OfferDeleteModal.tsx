@@ -49,10 +49,10 @@ export const OfferDeleteModal = ({ initialData, offerId }: Props) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <Button variant="contained" size="large" onClick={onClose}>
+          <Button color="inherit" variant="contained" onClick={onClose}>
             Cancel
           </Button>
-          <Button type="submit" onClick={onSubmit}>
+          <Button color="error" type="submit" onClick={onSubmit}>
             Delete
           </Button>
         </DialogActions>

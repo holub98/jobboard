@@ -11,7 +11,7 @@ export const login = async (data: LoginType) => {
     await api.post("/auth/login", data);
     enqueueSnackbar({ variant: "success", message: "Login success" });
   } catch (err) {
-    enqueueSnackbar({ variant: "error", message: `${err}` });
+    enqueueSnackbar({ variant: "error", message: "Invalid credentials" });
   }
 };
 
