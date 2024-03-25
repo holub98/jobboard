@@ -67,13 +67,13 @@ export type CandidateFullInfoType = {
   company: CompanyType;
 };
 
-export const useCandidate = () => {
+export const useCandidate = (token: string) => {
   const myCandidates = (offerId: string) => {
     const [data, setData] = useState<CandidateType[]>();
     const fetchCandidates = useMemo(
       () => async () => {
         try {
-          const response = await getOfferCadidates(offerId);
+          const response = await getOfferCadidates(offerId, token);
           setData(response.data);
         } catch (error) {
           enqueueSnackbar({ variant: "error", message: `${error}` });
@@ -86,12 +86,12 @@ export const useCandidate = () => {
     }, [fetchCandidates]);
     return data;
   };
-  const singleCandidate = (offerId: string, candidateId: string) => {
+  const singleCandidate = (offerId: string, candidateId: string, token: string) => {
     const [data, setData] = useState<CandidateFullInfoType>();
     const fetchCandidate = useMemo(
       () => async () => {
         try {
-          const response = await getSingleCandidate(offerId, candidateId);
+          const response = await getSingleCandidate(offerId, candidateId, token);
           setData(response.data);
         } catch (error) {
           enqueueSnackbar({ variant: "error", message: `${error}` });

@@ -17,9 +17,10 @@ import { updateOffer } from "~/api/companyOffer";
 type Props = {
   initialData: OfferType;
   offerId: string;
+  token: string
 };
 
-export const OfferUpdateModal = ({ initialData, offerId }: Props) => {
+export const OfferUpdateModal = ({ initialData, offerId, token }: Props) => {
   const form = useForm<OfferType>({
     defaultValues: initialData,
     resolver: zodResolver(offerSchema),
@@ -28,7 +29,7 @@ export const OfferUpdateModal = ({ initialData, offerId }: Props) => {
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onSubmit = async (data: OfferType) => {
-    updateOffer(data, offerId);
+    updateOffer(data, offerId, token);
     setIsOpen(false);
     reset();
   };

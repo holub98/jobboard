@@ -7,10 +7,17 @@ import { OfferUpdateModal } from "./OfferUpdateModal";
 import { OfferDeleteModal } from "./OfferDeleteModal";
 
 export const CompanyJobOfferts = () => {
+  const authStorage = localStorage.getItem("auth");
+  if (!authStorage) {
+    return null;
+  }
+
+  const tokenParsed = JSON.parse(authStorage);
+  const token = tokenParsed.token;
   const { companyOfferInfo, myOffers } = useCompanyOffers();
 
-  const data = companyOfferInfo();
-  const offers = myOffers();
+  const data = companyOfferInfo(token);
+  const offers = myOffers(token);
 
   if (offers === undefined) {
     return null;
@@ -39,7 +46,7 @@ export const CompanyJobOfferts = () => {
             Actual offers: {data.count}
           </Typography>
         </Stack>
-        <OfferCreateModal />
+        <OfferCreateModal token={token} />
       </Stack>
       {data.count === 0 && <ZeroCountOffer my />}
       {offers.map((it, index) => {
@@ -83,8 +90,16 @@ export const CompanyJobOfferts = () => {
                 <IconButton href={`/my-offers/${it._id}`}>
                   <AssignmentOutlined />
                 </IconButton>
-                <OfferUpdateModal initialData={it} offerId={it._id} />
-                <OfferDeleteModal initialData={it} offerId={it._id} />
+                <OfferUpdateModal
+                  initialData={it}
+                  offerId={it._id}
+                  token={token}
+                />
+                <OfferDeleteModal
+                  initialData={it}
+                  offerId={it._id}
+                  token={token}
+                />
               </Stack>
             </Stack>
           </Paper>

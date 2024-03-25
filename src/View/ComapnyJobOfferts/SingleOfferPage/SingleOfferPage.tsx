@@ -12,20 +12,27 @@ import { ArrowBackOutlined } from "@mui/icons-material";
 import { useCandidate, useCompanyOffers } from "~/hooks";
 import { OfferSection } from "./OfferSection";
 import { CandiateSection } from "./CandiateSection";
-import {  useState } from "react";
+import { useState } from "react";
 
 export const SingleOfferPage = () => {
+  const authStorage = localStorage.getItem("auth");
+  if (!authStorage) {
+    return null;
+  }
+
+  const tokenParsed = JSON.parse(authStorage);
+  const token = tokenParsed.token;
   const { offerId } = useParams();
   const { mySingleOffer } = useCompanyOffers();
   const navigate = useNavigate();
-  const { myCandidates } = useCandidate();
+  const { myCandidates } = useCandidate(token);
 
   const [side, setSide] = useState<string>("offer");
 
   if (offerId === undefined) {
     return null;
   }
-  const offer = mySingleOffer(offerId);
+  const offer = mySingleOffer(offerId, token);
   const candidates = myCandidates(offerId);
 
   if (offer === undefined || candidates === undefined) {
@@ -44,8 +51,16 @@ export const SingleOfferPage = () => {
           </Typography>
         </Stack>
         <Stack direction="row">
-          <OfferUpdateModal initialData={offer} offerId={offerId} />
-          <OfferDeleteModal initialData={offer} offerId={offerId} />
+          <OfferUpdateModal
+            initialData={offer}
+            offerId={offerId}
+            token={token}
+          />
+          <OfferDeleteModal
+            initialData={offer}
+            offerId={offerId}
+            token={token}
+          />
         </Stack>
       </Stack>
 

@@ -14,20 +14,20 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ChevronRight, MenuRounded } from "@mui/icons-material";
 import { logout } from "~/api";
-import { useAtomValue } from "jotai";
-import { AuthToken, isAuth } from "~/utils/useAuth";
+import { authAtom } from "~/utils/useAuth";
+import { useAtom } from "jotai";
 
 export const Navbar = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const isLogin = useAtomValue(isAuth);
+  const [isLogin, setLogin] = useAtom(authAtom);
 
   const onLogout = async () => {
     await logout();
 
     navigate("/");
-    AuthToken();
+    setLogin(undefined);
   };
   return (
     <Stack
@@ -175,7 +175,7 @@ export const Navbar = () => {
                     <ListItemText primary={"Logout"} />
                   </ListItemButton>
                 ) : (
-                  <ListItemButton href="/">
+                  <ListItemButton href="/login">
                     <ListItemText primary={"Login"} />
                   </ListItemButton>
                 )}

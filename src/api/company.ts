@@ -18,33 +18,37 @@ export type CompanyFullType = {
 };
 
 export const registerCompany = async (data: CompanyFullType) => {
+
   try {
-    await api.post("/company/register", data);
+   const response = await api.post("/company/register", data);
     enqueueSnackbar({ variant: "success", message: "Register success" });
+    return response.data
   } catch (err) {
     enqueueSnackbar({ variant: "error", message: `${err}` });
   }
 };
 
-export const getMyCompany = () => api.get("/company/my-company");
+export const getMyCompany = (token: string) => api.get("/company/my-company",{
+  headers: { Authorization : `Bearer ${token}` }
+});
 
 export const getAllCompanies = () => api.get("/company/");
 
 export const getSingleCompany = (companyId: string) =>
   api.get(`/company/${companyId}`);
 
-export const updateCompany = (data: CompanyFullType) => {
+export const updateCompany = (data: CompanyFullType, token: string) => {
   try {
-    api.put("/company/update-me", data);
+    api.put("/company/update-me", data,{headers: { Authorization : `Bearer ${token}` }});
     enqueueSnackbar({ variant: "success", message: "Account updated" });
   } catch (err) {
     enqueueSnackbar({ variant: "error", message: `${err}` });
   }
 };
 
-export const deleteAccount = () => {
+export const deleteAccount = (token: string) => {
   try {
-    api.delete("/company/delete-account");
+    api.delete("/company/delete-account", {headers: { Authorization : `Bearer ${token}` }});
     enqueueSnackbar({ variant: "success", message: "Account deleted" });
   } catch (err) {
     enqueueSnackbar({ variant: "error", message: `${err}` });

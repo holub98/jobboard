@@ -6,8 +6,9 @@ import { registerCompany } from "../../../api/company";
 import { InfoForm } from "../Form/InfoForm";
 import { LocalizationForm } from "../Form/LocalizationForm";
 import { DescriptionForm } from "../Form/DescriptionForm";
-import { AuthToken } from "~/utils/useAuth";
 import { useNavigate } from "react-router-dom";
+import { useSetAtom } from "jotai";
+import { authAtom } from "~/utils/useAuth";
 
 const StackDiv = styled("div")(({ theme }) => ({
   display: "flex",
@@ -26,11 +27,11 @@ export const RegisterView = () => {
   });
 
   const { handleSubmit } = form;
-  const onSubmit = async (data: CompanyType) => {
-    await registerCompany(data);
-    navigate("/");
 
-    AuthToken();
+  const setRegister = useSetAtom(authAtom);
+  const onSubmit = async (data: CompanyType) => {
+    setRegister(await registerCompany(data));
+    navigate("/");
   };
   return (
     <Stack justifyContent="center" alignItems="center" height="100%">

@@ -30,11 +30,12 @@ export type CandidateType = {
   stack: string[];
   another: string;
 };
-export const getOfferCadidates = (offerId: string) =>
-  api.get(`/candidates/${offerId}`);
+export const getOfferCadidates = (offerId: string, token: string) =>
+  api.get(`/candidates/${offerId}`, 
+  {headers: { Authorization : `Bearer ${token}` }});
 
-export const getSingleCandidate = (offerId: string, candidateId: string) =>
-  api.get(`/candidates/${offerId}/${candidateId}`);
+export const getSingleCandidate = (offerId: string, candidateId: string, token: string) =>
+  api.get(`/candidates/${offerId}/${candidateId}`, {headers: { Authorization : `Bearer ${token}` }});
 
 export const applyCandidate = (offerId: string, data: CandidateType) => {
   try {

@@ -16,9 +16,10 @@ import { Edit } from "@mui/icons-material";
 import { LocalizationForm } from "./Form/LocalizationForm";
 type Props = {
   initialData: CompanyFullType;
+  token: string
 };
 
-export const LocalizationUpdateModal = ({ initialData }: Props) => {
+export const LocalizationUpdateModal = ({ initialData, token }: Props) => {
   const form = useForm<CompanyType>({
     defaultValues: initialData,
     resolver: zodResolver(companySchema),
@@ -27,7 +28,7 @@ export const LocalizationUpdateModal = ({ initialData }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onSubmit = (data: CompanyType) => {
-    updateCompany(data);
+    updateCompany(data, token);
     setIsOpen(false);
     reset();
   };

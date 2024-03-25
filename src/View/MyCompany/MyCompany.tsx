@@ -7,11 +7,19 @@ import { DescriptionUpdateModal } from "./DescriptionUpdateModal";
 import { CloseAccountModal } from "./CloseAccountModal";
 
 export const MyCompany = () => {
+  const authStorage = localStorage.getItem("auth");
+  if (!authStorage) {
+    return null;
+  }
+
+  const tokenParsed = JSON.parse(authStorage);
+  const token = tokenParsed.token;
+
   const { myCompany } = useCompanies();
   if (myCompany === undefined) {
     return null;
   }
-  const data = myCompany();
+  const data = myCompany(token);
   if (data === undefined) {
     return null;
   }
@@ -42,7 +50,7 @@ export const MyCompany = () => {
             </Typography>
           </Stack>
           <Stack direction="row" gap="4px">
-            <CloseAccountModal />
+            <CloseAccountModal token={token} />
           </Stack>
         </Stack>
       </Paper>
@@ -71,7 +79,7 @@ export const MyCompany = () => {
         >
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="h6">Company info:</Typography>
-            <InfoUpdateModal initialData={data.company} />
+            <InfoUpdateModal initialData={data.company} token={token} />
           </Stack>
           <Stack>
             <Typography>Name: {data.company.name}</Typography>
@@ -93,7 +101,7 @@ export const MyCompany = () => {
         >
           <Stack direction="row" justifyContent="space-between">
             <Typography variant="h6">Company address:</Typography>
-            <LocalizationUpdateModal initialData={data.company} />
+            <LocalizationUpdateModal initialData={data.company} token={token} />
           </Stack>
           <Stack>
             <Typography>
@@ -122,7 +130,7 @@ export const MyCompany = () => {
         <Stack direction="row" justifyContent="space-between">
           <Typography variant="h6">About me:</Typography>
 
-          <DescriptionUpdateModal initialData={data.company} />
+          <DescriptionUpdateModal initialData={data.company} token={token} />
         </Stack>
         <div dangerouslySetInnerHTML={{ __html: data.company.description }} />
       </Paper>

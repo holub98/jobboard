@@ -22,13 +22,13 @@ type myOffers = {
 };
 
 export const useCompanyOffers = () => {
-  const companyOfferInfo = () => {
+  const companyOfferInfo = (token: string) => {
     const [data, setData] = useState<CompanyCount>({ name: "", count: 0 });
 
     const fetchMyOffers = useMemo(
       () => async () => {
         try {
-          const response = await getMyOfferCount();
+          const response = await getMyOfferCount(token);
           setData(response.data);
         } catch (error) {
           enqueueSnackbar({ variant: "error", message: `${error}` });
@@ -43,12 +43,12 @@ export const useCompanyOffers = () => {
     return data;
   };
 
-  const myOffers = () => {
+  const myOffers = (token: string) => {
     const [data, setData] = useState<myOffers[]>();
     const fetchMyOffers = useMemo(
       () => async () => {
         try {
-          const response = await getMyOffers();
+          const response = await getMyOffers(token);
           setData(response.data);
         } catch (error) {
           enqueueSnackbar({ variant: "error", message: `${error}` });
@@ -64,13 +64,13 @@ export const useCompanyOffers = () => {
     return data;
   };
 
-  const mySingleOffer = (singleId: string) => {
+  const mySingleOffer = (singleId: string, token: string) => {
     const [data, setData] = useState<myOffers>();
 
     const fetchMyOffers = useMemo(
       () => async () => {
         try {
-          const response = await getMySingleOffer(singleId);
+          const response = await getMySingleOffer(singleId, token);
           setData(response.data);
         } catch (error) {
           enqueueSnackbar({ variant: "error", message: `${error}` });

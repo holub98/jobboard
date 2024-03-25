@@ -14,9 +14,9 @@ export type JobOfferType = {
   description: string;
 };
 
-export const createOffer = (data: JobOfferType) => {
+export const createOffer = (data: JobOfferType, token: string) => {
   try {
-    api.post("/job-offer/create", data);
+    api.post("/job-offer/create", data, {headers: { Authorization : `Bearer ${token}` }});
 
     enqueueSnackbar({ variant: "success", message: "Offer created" });
   } catch (err) {
@@ -24,9 +24,9 @@ export const createOffer = (data: JobOfferType) => {
   }
 };
 
-export const updateOffer = (data: JobOfferType, offerId: string) => {
+export const updateOffer = (data: JobOfferType, offerId: string, token: string) => {
   try {
-    api.put(`job-offer/${offerId}`, data);
+    api.put(`job-offer/${offerId}`, data,{headers: { Authorization : `Bearer ${token}` }});
 
     enqueueSnackbar({ variant: "success", message: "Offer updated" });
   } catch (err) {
@@ -34,9 +34,9 @@ export const updateOffer = (data: JobOfferType, offerId: string) => {
   }
 };
 
-export const deleteOffer = (offerId: string) => {
+export const deleteOffer = (offerId: string, token: string) => {
   try {
-    api.delete(`job-offer/${offerId}`);
+    api.delete(`job-offer/${offerId}`, {headers: { Authorization : `Bearer ${token}` }});
 
     enqueueSnackbar({ variant: "success", message: "Offer deleted" });
   } catch (err) {
@@ -44,9 +44,9 @@ export const deleteOffer = (offerId: string) => {
   }
 };
 
-export const getMyOffers = async () => await api.get("/job-offer/my-offer");
+export const getMyOffers = async (token: string) => await api.get("/job-offer/my-offer", {headers: { Authorization : `Bearer ${token}` }});
 
-export const getMyOfferCount = () => api.get("/job-offer/my-offer-count");
+export const getMyOfferCount = (token: string) => api.get("/job-offer/my-offer-count", {headers: { Authorization : `Bearer ${token}` }});
 
-export const getMySingleOffer = (offerId: string) =>
-  api.get(`/job-offer/me/${offerId}`);
+export const getMySingleOffer = (offerId: string, token: string) =>
+  api.get(`/job-offer/me/${offerId}`, {headers: { Authorization : `Bearer ${token}` }});

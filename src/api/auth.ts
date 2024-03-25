@@ -7,9 +7,12 @@ type LoginType = {
 };
 
 export const login = async (data: LoginType) => {
+ 
   try {
-    await api.post("/auth/login", data);
+   const response = await api.post("/auth/login", data);
+
     enqueueSnackbar({ variant: "success", message: "Login success" });
+    return response.data;
   } catch (err) {
     enqueueSnackbar({ variant: "error", message: "Invalid credentials" });
   }

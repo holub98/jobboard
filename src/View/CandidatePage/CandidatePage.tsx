@@ -5,16 +5,24 @@ import { useCandidate } from "~/hooks";
 import { PDFDownloadLink } from "@react-pdf/renderer";
 import { CandidateResumePdf } from "./GeneratePDF";
 
+
 export const CandidatePage = () => {
+  const authStorage = localStorage.getItem("auth");
+  if (!authStorage) {
+    return null;
+  }
+
+  const tokenParsed = JSON.parse(authStorage);
+  const token = tokenParsed.token;
   const { offerId, candidateId } = useParams();
   const navigate = useNavigate();
-  const { singleCandidate } = useCandidate();
+  const { singleCandidate } = useCandidate(token);
 
   if (offerId === undefined || candidateId === undefined) {
     return null;
   }
 
-  const data = singleCandidate(offerId, candidateId);
+  const data = singleCandidate(offerId, candidateId, token);
 
   if (data === undefined) {
     return null;

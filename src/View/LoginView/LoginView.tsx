@@ -14,7 +14,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { LoginType, loginSchema } from "./schema";
 import { useNavigate } from "react-router-dom";
 import { login } from "~/api";
-import { AuthToken } from "~/utils/useAuth";
+import { useSetAtom } from "jotai";
+import { authAtom } from "~/utils/useAuth";
 
 export const LoginView = () => {
   const navigate = useNavigate();
@@ -27,11 +28,10 @@ export const LoginView = () => {
     resolver: zodResolver(loginSchema),
   });
 
-  const onSubmit = async (data: LoginType) => {
-    await login(data);
+  const setLogin = useSetAtom(authAtom);
+  const onSubmit = async (dataLogin: LoginType) => {
+    setLogin(await login(dataLogin));
     navigate("/");
-
-    AuthToken();
   };
 
   return (

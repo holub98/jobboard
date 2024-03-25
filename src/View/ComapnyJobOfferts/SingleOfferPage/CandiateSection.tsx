@@ -12,38 +12,42 @@ export const CandiateSection = ({ candidates }: Props) => {
       <Typography variant="h6" fontWeight="bold">
         Actual applies: {candidates.length}
       </Typography>
-
-      {candidates.map((it, index) => (
-        <Paper
-          elevation={3}
-          sx={{
-            padding: "8px 16px",
-            display: "flex",
-            flexDirection: "column",
-            gap: "8px",
-          }}
-          key={index}
-        >
-          <Stack direction="row" justifyContent="space-between">
-            <Typography variant="h6">
-              {it.firstName} {it.lastName}
-            </Typography>
-            <Button variant="text" href={`/my-offers/${it.offerId}/${it._id}`}>
-              More details
-            </Button>
-          </Stack>
-          <Stack gap={1} direction="row">
-            <Stack direction="row" alignItems="center" gap={1}>
-              <Call />
-              <Typography>{it.phone}</Typography>
+      <Stack direction="column" gap="16px">
+        {candidates.map((it, index) => (
+          <Paper
+            elevation={3}
+            sx={{
+              padding: "8px 16px",
+              display: "flex",
+              flexDirection: "column",
+              gap: "8px",
+            }}
+            key={index}
+          >
+            <Stack direction="row" justifyContent="space-between">
+              <Typography variant="h6">
+                {it.firstName} {it.lastName}
+              </Typography>
+              <Button
+                variant="text"
+                href={`/my-offers/${it.offerId}/${it._id}`}
+              >
+                More details
+              </Button>
             </Stack>
-            <Stack direction="row" alignItems="center" gap={1}>
-              <MailOutline />
-              <Typography>{it.email}</Typography>
+            <Stack gap={1} direction="row">
+              <Stack direction="row" alignItems="center" gap={1}>
+                <Call />
+                <Typography>{it.phone}</Typography>
+              </Stack>
+              <Stack direction="row" alignItems="center" gap={1}>
+                <MailOutline />
+                <Typography>{it.email}</Typography>
+              </Stack>
             </Stack>
-          </Stack>
-        </Paper>
-      ))}
+          </Paper>
+        ))}
+      </Stack>
     </Stack>
   );
 };

@@ -98,12 +98,12 @@ export const useCompanies = () => {
     return data;
   };
 
-  const myCompany = () => {
+  const myCompany = (token: string) => {
     const [data, setData] = useState<MyCompany>();
     const fetchMyCompany = useMemo(
       () => async () => {
         try {
-          const response = await getMyCompany();
+          const response = await getMyCompany(token);
           setData(response.data);
         } catch (error) {
           enqueueSnackbar({ variant: "error", message: `${error}` });

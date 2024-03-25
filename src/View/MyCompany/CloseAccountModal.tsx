@@ -11,10 +11,13 @@ import {
 import { useState } from "react";
 import { deleteAccount } from "~/api";
 
-export const CloseAccountModal = () => {
+type Props = {
+  token: string;
+};
+export const CloseAccountModal = ({ token }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const onSubmit = async () => {
-    deleteAccount();
+    deleteAccount(token);
     setIsOpen(false);
   };
   const onClose = () => {

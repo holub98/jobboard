@@ -16,9 +16,10 @@ import { Edit } from "@mui/icons-material";
 import { InfoForm } from "./Form/InfoForm";
 type Props = {
   initialData: CompanyFullType;
+  token: string
 };
 
-export const InfoUpdateModal = ({ initialData }: Props) => {
+export const InfoUpdateModal = ({ initialData, token }: Props) => {
   const form = useForm<CompanyType>({
     defaultValues: initialData,
     resolver: zodResolver(companySchema),
@@ -27,7 +28,7 @@ export const InfoUpdateModal = ({ initialData }: Props) => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
 
   const onSubmit = (data: CompanyType) => {
-    updateCompany(data);
+    updateCompany(data, token);
     setIsOpen(false);
     reset();
   };
